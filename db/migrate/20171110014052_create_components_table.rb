@@ -1,6 +1,6 @@
 class CreateComponentsTable < ActiveRecord::Migration[5.1]
   def change
-    create_table :components_tables do |t|
+    create_table :components do |t|
       t.string :name
       t.string :local_id
       t.string :previous_id
