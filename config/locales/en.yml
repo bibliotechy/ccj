@@ -30,4 +30,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello_world: "Hello world"
+  hello_flash: "Hello flash"
+  success:
+    'true': 'True!'
+    'on': "On!"
+    'false': 'False!'
+  failure:
+    true:    'True!'
+    off:     'Off!'
+    false:   'False!'
+
+
+

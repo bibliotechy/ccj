@@ -21,9 +21,6 @@ def extract_locale_from_tld
 end
 
 
-#def set_locale
-#    I18n.locale = current_user.try(:locale) || I18n.default_locale
-#end
 
 
 def set_locale
