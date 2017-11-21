@@ -1,4 +1,3 @@
 class Work < ApplicationRecord
-    has_many :artists
-    has_many :components
+    has_many :components through :artists
 end
