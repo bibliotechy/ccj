@@ -1,0 +1,51 @@
+<%= form_with(model: work, local: true) do |form| %>
+  <% if work.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(work.errors.count, "error") %> prohibited this work from being saved:</h2>
+
+      <ul>
+      <% work.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title_en %>
+    <%= form.text_area :title_en, id: :work_title_en %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title_jp %>
+    <%= form.text_area :title_jp, id: :work_title_jp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description_en %>
+    <%= form.text_area :description_en, id: :work_description_en %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description_jp %>
+    <%= form.text_area :description_jp, id: :work_description_jp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :local_id %>
+    <%= form.text_field :local_id, id: :work_local_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :components %>
+    <%= content_tag :span, "Components must be edited on the componets page" %>
+    <ul>
+      <%= @work.components.collect do |component| %>
+        <%= content_tag(:li, link_to(component, edit_component_path(component), class: "warn")) %>
+      <% end.join.html_safe %>
+    </ul>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

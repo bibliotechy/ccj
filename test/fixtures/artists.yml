@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_en: MyText
+  name_jp: MyText
+  viaf_identifier: MyString
+  local_identifier: MyString
+
+two:
+  name_en: MyText
+  name_jp: MyText
+  viaf_identifier: MyString
+  local_identifier: MyString

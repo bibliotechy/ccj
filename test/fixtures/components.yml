@@ -1,0 +1,85 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  local_identifer: MyString
+  identifier: MyString
+  previous_ids: MyString
+  work: one
+  description_en: MyText
+  description_jp: MyText
+  contributors_jp: MyString
+  contributors_jp: MyString
+  creation_date: 2017-12-03
+  color: MyString
+  sound: MyString
+  run_time: 2017-12-03 13:16:19
+  collection: MyString
+  media_type: MyString
+  media_format: MyString
+  component_type: MyString
+  relation: MyString
+  film_print_type: MyString
+  fps: 1
+  brand: MyString
+  file_ame: MyString
+  codec: MyString
+  codec_id: MyString
+  file_size_gb: 1.5
+  duration: MyString
+  bit_rate: MyString
+  dimensions: MyString
+  display_aspect_ratio: MyString
+  bit_depth: MyString
+  scan_type: MyString
+  encoded_date: 2017-12-03 13:16:19
+  provenance: MyText
+  viewing_restrictions: MyText
+  terms_governing_use: MyText
+  housing_annotations: MyText
+  item_annotations: MyText
+  condition_notes: MyText
+  notes: MyText
+  date_of_entry: 2017-12-03
+  cataloger: MyString
+
+two:
+  local_identifer: MyString
+  identifier: MyString
+  previous_ids: MyString
+  work: two
+  description_en: MyText
+  description_jp: MyText
+  contributors_jp: MyString
+  contributors_jp: MyString
+  creation_date: 2017-12-03
+  color: MyString
+  sound: MyString
+  run_time: 2017-12-03 13:16:19
+  collection: MyString
+  media_type: MyString
+  media_format: MyString
+  component_type: MyString
+  relation: MyString
+  film_print_type: MyString
+  fps: 1
+  brand: MyString
+  file_ame: MyString
+  codec: MyString
+  codec_id: MyString
+  file_size_gb: 1.5
+  duration: MyString
+  bit_rate: MyString
+  dimensions: MyString
+  display_aspect_ratio: MyString
+  bit_depth: MyString
+  scan_type: MyString
+  encoded_date: 2017-12-03 13:16:19
+  provenance: MyText
+  viewing_restrictions: MyText
+  terms_governing_use: MyText
+  housing_annotations: MyText
+  item_annotations: MyText
+  condition_notes: MyText
+  notes: MyText
+  date_of_entry: 2017-12-03
+  cataloger: MyString

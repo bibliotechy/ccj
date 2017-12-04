@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name en:</strong>
+  <%= @artist.name_en %>
+</p>
+
+<p>
+  <strong>Name jp:</strong>
+  <%= @artist.name_jp %>
+</p>
+
+<p>
+  <strong>Viaf identifier:</strong>
+  <%= @artist.viaf_identifier %>
+</p>
+
+<p>
+  <strong>Local identifier:</strong>
+  <%= @artist.local_identifier %>
+</p>
+
+<p>
+  <strong>Works </strong>
+  <ul>
+    <%= @artist.works.collect do |work| %>
+      <%= content_tag(:li, link_to(work, work_path(work))) %>
+      <% end.join.html_safe %>
+  </ul>
+</p>
+
+
+<%= link_to 'Edit', edit_artist_path(@artist) %> |
+<%= link_to 'Back', artists_path %>

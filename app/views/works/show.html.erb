@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title en:</strong>
+  <%= @work.title_en %>
+</p>
+
+<p>
+  <strong>Title jp:</strong>
+  <%= @work.title_jp %>
+</p>
+
+<p>
+  <strong>Description en:</strong>
+  <%= @work.description_en %>
+</p>
+
+<p>
+  <strong>Description jp:</strong>
+  <%= @work.description_jp %>
+</p>
+
+<p> <strong> Components </strong>
+  <ul>
+    <%= @work.components.collect do |component| %>
+      <%= content_tag(:li, link_to(component, component_path(component))) %>
+    <% end.join.html_safe %>
+  </ul>
+</p>
+
+<p> <strong> Artists </strong>
+  <ul>
+    <%= @work.artists.collect do |artist| %>
+      <%= content_tag(:li, link_to(artist, artist_path(artist))) %>
+    <% end.join.html_safe %>
+  </ul>
+</p>
+
+<p>
+  <strong>Local:</strong>
+  <%= @work.local_id %>
+</p>
+
+<%= link_to 'Edit', edit_work_path(@work) %> |
+<%= link_to 'Back', works_path %>
