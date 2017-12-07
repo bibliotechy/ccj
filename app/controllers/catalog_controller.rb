@@ -3,6 +3,15 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+  def show
+    id = params[:id].split("_")[1]
+    @work = Work.find(id)
+   respond_to do |format|
+     format.html  # {setup_next_and_previous_documents }
+     #format.json { render json: { response: { document: @document } } }
+   end
+ end
+
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
@@ -15,7 +24,8 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      rows: 10
+      rows: 10,
+      fl: "id title_t score artists_t"
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -70,6 +80,8 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'artists_facet', label: 'Artists'
+    config.add_facet_field 'media_type_facet', label: "Media Type"
+    config.add_facet_field 'media_format_facet', label: 'Media Format'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -78,18 +90,11 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_t', label: 'Title'
-    config.add_index_field 'title_vern_display', label: 'Title'
-    config.add_index_field 'author_display', label: 'Author'
-    config.add_index_field 'author_vern_display', label: 'Author'
-    config.add_index_field 'format', label: 'Format'
-    config.add_index_field 'language_facet', label: 'Language'
-    config.add_index_field 'published_display', label: 'Published'
-    config.add_index_field 'published_vern_display', label: 'Published'
-    config.add_index_field 'lc_callnum_display', label: 'Call number'
+    config.add_index_field 'artists_t', label: 'Artists', multi: true
 
-    # solr fields to be displayed in the show (single result) view
-    #   The ordering of the field names is the order of the display
+
+
+      #   The ordering of the field names is the order of the display
     config.add_show_field 'title_t', label: 'Title'
     config.add_show_field 'description_en_t', label: 'Description'
 

@@ -1,0 +1,47 @@
+<div id="content" class="<%= show_content_classes %>">
+  <p id="notice"><%= notice %></p>
+  <h2>
+    <%= @work.title %>
+  </h2>
+
+  <dl class="row dl-invert document-metadata">
+
+    <dt class="col-md-3"><%= t('work.title_jp') %></dt>
+    <dd class="col-md-9"><%= @work.title_jp %></dd>
+    <dt class="col-md-3"><%= t('work.title_en')%></dt>
+    <dd class="col-md-9"><%= @work.title_en %></dd>
+
+  </dl>
+
+  <p>
+    <strong>Description en:</strong>
+    <%= @work.description_en %>
+  </p>
+
+  <p>
+    <strong>Description jp:</strong>
+    <%= @work.description_jp %>
+  </p>
+
+  <p> <strong> Components </strong>
+    <ul>
+      <%= @work.components.collect do |component| %>
+        <%= content_tag(:li, link_to(component, component_path(component))) %>
+      <% end.join.html_safe %>
+    </ul>
+  </p>
+
+  <p> <strong> Artists </strong>
+    <ul>
+      <%= @work.artists.collect do |artist| %>
+        <%= content_tag(:li, link_to(artist, artist_path(artist))) %>
+      <% end.join.html_safe %>
+    </ul>
+  </p>
+
+  <p>
+    <strong>Local:</strong>
+    <%= @work.local_id %>
+  </p>
+
+</div>

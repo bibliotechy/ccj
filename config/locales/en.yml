@@ -30,4 +30,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  work:
+    title_en: "English Title"
+    title_jp: "Japanese Title"
