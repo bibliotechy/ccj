@@ -26,7 +26,7 @@ class ArtistDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :name_en,
-    :name_jp,    
+    :name_jp,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -58,7 +58,7 @@ class ArtistDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how artists are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(artist)
-  #   "Artist ##{artist.id}"
-  # end
+   def display_resource(artist)
+     artist.name
+   end
 end

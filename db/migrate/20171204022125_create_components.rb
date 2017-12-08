@@ -7,7 +7,7 @@ class CreateComponents < ActiveRecord::Migration[5.1]
       t.belongs_to :work, foreign_key: true
       t.text :description_en
       t.text :description_jp
-      t.string :contributors_jp
+      t.string :contributors_en
       t.string :contributors_jp
       t.date :creation_date
       t.string :color
@@ -21,7 +21,7 @@ class CreateComponents < ActiveRecord::Migration[5.1]
       t.string :film_print_type
       t.integer :fps
       t.string :brand
-      t.string :file_ame
+      t.string :file_name
       t.string :codec
       t.string :codec_id
       t.float :file_size_gb
