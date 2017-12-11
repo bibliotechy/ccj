@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  
+
+  resources :uploads
   mount Blacklight::Engine => '/'
   root to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new
@@ -27,8 +28,9 @@ Rails.application.routes.draw do
     resources :artists
     resources :components
     resources :works
+    resources :uploads
 
-    root to: "artists#index"
+    root to: "works#index"
   end
 
   resources :artists

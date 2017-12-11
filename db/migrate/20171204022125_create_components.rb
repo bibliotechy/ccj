@@ -1,6 +1,7 @@
 class CreateComponents < ActiveRecord::Migration[5.1]
   def change
     create_table :components do |t|
+      t.string :name
       t.string :local_identifer
       t.string :identifier
       t.string :previous_ids

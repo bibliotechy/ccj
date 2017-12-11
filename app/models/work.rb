@@ -19,14 +19,16 @@ class Work < ApplicationRecord
   end
 
   def components_solr
+    return_hash = {}
     # Get an array of hash representations of components
     # thenm transfom that into a hash of arrays
     components.map(&:to_solr)
-    .reduce({}) do |return_hash, pairs|
+    .each do |pairs|
       pairs.each do |k,v|
-        (return_hash[k] ||= []) << v
+        (return_hash[k] ||= []) << v unless v.nil?
       end
     end
+    return_hash
   end
 
   def index_record

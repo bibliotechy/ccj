@@ -1,0 +1,37 @@
+<%= form_with(model: upload, local: true) do |form| %>
+  <% if upload.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(upload.errors.count, "error") %> prohibited this upload from being saved:</h2>
+
+      <ul>
+      <% upload.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :file %>
+    <%= form.text_field :file, id: :upload_file %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ingested %>
+    <%= form.check_box :ingested, id: :upload_ingested %>
+  </div>
+
+  <div class="field">
+    <%= form.label :records_upserted %>
+    <%= form.number_field :records_upserted, id: :upload_records_upserted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :error_message %>
+    <%= form.text_area :error_message, id: :upload_error_message %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

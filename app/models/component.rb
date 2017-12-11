@@ -28,7 +28,7 @@ class Component < ApplicationRecord
       film_print_type_t: film_print_type,
       fps_t: fps,
       brand_t: brand,
-      file_ame_t: file_ame,
+      file_name_t: file_name,
       codec_t: codec,
       codec_id_t: codec_id,
       file_size_gb_t: file_size_gb,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205010345) do
+ActiveRecord::Schema.define(version: 20171209153227) do
 
   create_table "artists", force: :cascade do |t|
     t.text "name_en"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20171205010345) do
     t.integer "work_id"
     t.text "description_en"
     t.text "description_jp"
+    t.string "contributors_en"
     t.string "contributors_jp"
     t.date "creation_date"
     t.string "color"
@@ -58,7 +59,7 @@ ActiveRecord::Schema.define(version: 20171205010345) do
     t.string "film_print_type"
     t.integer "fps"
     t.string "brand"
-    t.string "file_ame"
+    t.string "file_name"
     t.string "codec"
     t.string "codec_id"
     t.float "file_size_gb"
@@ -90,6 +91,15 @@ ActiveRecord::Schema.define(version: 20171205010345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_searches_on_user_id"
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.string "file"
+    t.boolean "was_ingested"
+    t.integer "records_upserted"
+    t.text "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
