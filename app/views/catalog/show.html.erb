@@ -4,6 +4,14 @@
     <%= @work.title %>
   </h2>
 
+  <p> <strong> Artists </strong>
+    <ul>
+      <%= @work.artists.collect do |artist| %>
+        <%= content_tag(:li, artist.name) %>
+      <% end.join.html_safe %>
+    </ul>
+  </p>
+
   <dl class="row dl-invert document-metadata">
 
     <dt class="col-md-3"><%= t('work.title_jp') %></dt>
@@ -26,18 +34,14 @@
   <p> <strong> Components </strong>
     <ul>
       <%= @work.components.collect do |component| %>
-        <%= content_tag(:li, link_to(component, component_path(component))) %>
+      <li>
+        <%= render('components/fields', component: component) %>
+      </li>
+
       <% end.join.html_safe %>
     </ul>
   </p>
 
-  <p> <strong> Artists </strong>
-    <ul>
-      <%= @work.artists.collect do |artist| %>
-        <%= content_tag(:li, link_to(artist, artist_path(artist))) %>
-      <% end.join.html_safe %>
-    </ul>
-  </p>
 
   <p>
     <strong>Local:</strong>

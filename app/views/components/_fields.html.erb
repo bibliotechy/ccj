@@ -1,0 +1,250 @@
+<% if component.local_identifer %>
+<% if  component.local_identifer  %>
+<p>
+  <strong>Local identifer:</strong>
+  <%=  component.local_identifer  %>
+</p><% end %>
+<% end %>
+
+<% if  component.identifier  %>
+<p>
+  <strong>Identifier:</strong>
+  <%=  component.identifier  %>
+</p><% end %>
+
+<% if  component.previous_ids  %>
+<p>
+  <strong>Previous ids:</strong>
+  <%=  component.previous_ids  %>
+</p><% end %>
+
+<% if  link_to(component.work, work_path(component.work))  %>
+<p>
+  <strong>Work:</strong>
+  <%=  link_to(component.work, work_path(component.work))  %>
+</p><% end %>
+
+<p>
+  <strong>Artists:</strong>
+  <ul>
+    <%= component.artists.collect do |artist| %>
+    <li><%= link_to(artist, artist_path(artist)) %></li>
+    <% end.join.html_safe %>
+  </ul>
+</p>
+
+<% if  component.description_en  %>
+<p>
+  <strong>Description en:</strong>
+  <%=  component.description_en  %>
+</p><% end %>
+
+<% if  component.description_jp  %>
+<p>
+  <strong>Description jp:</strong>
+  <%=  component.description_jp  %>
+</p><% end %>
+
+<% if  component.contributors_jp  %>
+<p>
+  <strong>Contributors jp:</strong>
+  <%=  component.contributors_jp  %>
+</p><% end %>
+
+<% if  component.contributors_jp  %>
+<p>
+  <strong>Contributors jp:</strong>
+  <%=  component.contributors_jp  %>
+</p><% end %>
+
+<% if  component.creation_date  %>
+<p>
+  <strong>Creation date:</strong>
+  <%=  component.creation_date  %>
+</p><% end %>
+
+<% if  component.color  %>
+<p>
+  <strong>Color:</strong>
+  <%=  component.color  %>
+</p><% end %>
+
+<% if  component.sound  %>
+<p>
+  <strong>Sound:</strong>
+  <%=  component.sound  %>
+</p><% end %>
+
+<% if  component.run_time  %>
+<p>
+  <strong>Run time:</strong>
+  <%=  component.run_time  %>
+</p><% end %>
+
+<% if  component.collection  %>
+<p>
+  <strong>Collection:</strong>
+  <%=  component.collection  %>
+</p><% end %>
+
+<% if  component.media_type  %>
+<p>
+  <strong>Media type:</strong>
+  <%=  component.media_type  %>
+</p><% end %>
+
+<% if  component.media_format  %>
+<p>
+  <strong>Media format:</strong>
+  <%=  component.media_format  %>
+</p><% end %>
+
+<% if  component.component_type  %>
+<p>
+  <strong>Component type:</strong>
+  <%=  component.component_type  %>
+</p><% end %>
+
+<% if  component.relation  %>
+<p>
+  <strong>Relation:</strong>
+  <%=  component.relation  %>
+</p><% end %>
+
+<% if  component.film_print_type  %>
+<p>
+  <strong>Film print type:</strong>
+  <%=  component.film_print_type  %>
+</p><% end %>
+
+<% if  component.fps  %>
+<p>
+  <strong>Fps:</strong>
+  <%=  component.fps  %>
+</p><% end %>
+
+<% if  component.brand  %>
+<p>
+  <strong>Brand:</strong>
+  <%=  component.brand  %>
+</p><% end %>
+
+<% if  component.file_name  %>
+<p>
+  <strong>File name:</strong>
+  <%=  component.file_name  %>
+</p><% end %>
+
+<% if  component.codec  %>
+<p>
+  <strong>Codec:</strong>
+  <%=  component.codec  %>
+</p><% end %>
+
+<% if  component.codec_id  %>
+<p>
+  <strong>Codec:</strong>
+  <%=  component.codec_id  %>
+</p><% end %>
+
+<% if  component.file_size_gb  %>
+<p>
+  <strong>File size gb:</strong>
+  <%=  component.file_size_gb  %>
+</p><% end %>
+
+<% if  component.duration  %>
+<p>
+  <strong>Duration:</strong>
+  <%=  component.duration  %>
+</p><% end %>
+
+<% if  component.bit_rate  %>
+<p>
+  <strong>Bit rate:</strong>
+  <%=  component.bit_rate  %>
+</p><% end %>
+
+<% if  component.dimensions  %>
+<p>
+  <strong>Dimensions:</strong>
+  <%=  component.dimensions  %>
+</p><% end %>
+
+<% if  component.display_aspect_ratio  %>
+<p>
+  <strong>Display aspect ratio:</strong>
+  <%=  component.display_aspect_ratio  %>
+</p><% end %>
+
+<% if  component.bit_depth  %>
+<p>
+  <strong>Bit depth:</strong>
+  <%=  component.bit_depth  %>
+</p><% end %>
+
+<% if  component.scan_type  %>
+<p>
+  <strong>Scan type:</strong>
+  <%=  component.scan_type  %>
+</p><% end %>
+
+<% if  component.encoded_date  %>
+<p>
+  <strong>Encoded date:</strong>
+  <%=  component.encoded_date  %>
+</p><% end %>
+
+<% if  component.provenance  %>
+<p>
+  <strong>Provenance:</strong>
+  <%=  component.provenance  %>
+</p><% end %>
+
+<% if  component.viewing_restrictions  %>
+<p>
+  <strong>Viewing restrictions:</strong>
+  <%=  component.viewing_restrictions  %>
+</p><% end %>
+
+<% if  component.terms_governing_use  %>
+<p>
+  <strong>Terms governing use:</strong>
+  <%=  component.terms_governing_use  %>
+</p><% end %>
+
+<% if  component.housing_annotations  %>
+<p>
+  <strong>Housing annotations:</strong>
+  <%=  component.housing_annotations  %>
+</p><% end %>
+
+<% if  component.item_annotations  %>
+<p>
+  <strong>Item annotations:</strong>
+  <%=  component.item_annotations  %>
+</p><% end %>
+
+<% if  component.condition_notes  %>
+<p>
+  <strong>Condition notes:</strong>
+  <%=  component.condition_notes  %>
+</p><% end %>
+
+<% if  component.notes  %>
+<p>
+  <strong>Notes:</strong>
+  <%=  component.notes  %>
+</p><% end %>
+
+<% if  component.date_of_entry  %>
+<p>
+  <strong>Date of entry:</strong>
+  <%=  component.date_of_entry  %>
+</p><% end %>
+
+<% if  component.cataloger  %>
+<p>
+  <strong>Cataloger:</strong>
+  <%=  component.cataloger  %>
+</p><% end %>
