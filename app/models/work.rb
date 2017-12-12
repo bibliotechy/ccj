@@ -13,8 +13,8 @@ class Work < ApplicationRecord
       title_jp_t: title_jp,
       description_en_t: description_en,
       description_jp_t: description_jp,
-      artists_t: artists.map(&:to_s),
-      artists_facet: artists.map(&:to_s),
+      artists_t: artists.uniq.map(&:to_s),
+      artists_facet: artists.uniq.map(&:to_s),
     }.merge(components_solr)
   end
 

@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171209153227) do
   end
 
   create_table "components", force: :cascade do |t|
+    t.string "name"
     t.string "local_identifer"
     t.string "identifier"
     t.string "previous_ids"

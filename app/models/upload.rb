@@ -2,14 +2,8 @@ require 'csv'
 class Upload < ApplicationRecord
   mount_uploader :file, ImportUploader
 
-  def initialize(params)
-    super
-    self.file = params[:file]
-    process_upload
-
-  end
-
   def process_upload
+    binding.pry
     record_count = 0
     open(file.current_path, "rb") do |f|
       CSV.foreach(f, headers: true).each do |row|
@@ -85,7 +79,7 @@ class Upload < ApplicationRecord
     end
   end
   def has_artist_name?(row)
-    !row["Artist name(JP)"].nil? or !row["Artist name(EN)"].nil?
+    !row["Artist name (JP)"].nil? or !row["Artist name (EN)"].nil?
   end
 
   def work_from_row(row)

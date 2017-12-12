@@ -12,24 +12,16 @@
     </ul>
   </p>
 
-  <dl class="row dl-invert document-metadata">
 
-    <dt class="col-md-3"><%= t('work.title_jp') %></dt>
-    <dd class="col-md-9"><%= @work.title_jp %></dd>
-    <dt class="col-md-3"><%= t('work.title_en')%></dt>
-    <dd class="col-md-9"><%= @work.title_en %></dd>
-
-  </dl>
-
-  <p>
-    <strong>Description en:</strong>
-    <%= @work.description_en %>
-  </p>
-
-  <p>
-    <strong>Description jp:</strong>
-    <%= @work.description_jp %>
-  </p>
+    <p>
+      <strong>Description</strong>
+    </p>
+    <p>
+      <%= @work.description_en %>
+      <br />
+      <br />
+      <%= @work.description_jp %>
+    </p>
 
   <p> <strong> Components </strong>
     <ul>

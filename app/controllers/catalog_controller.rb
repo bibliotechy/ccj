@@ -28,6 +28,10 @@ class CatalogController < ApplicationController
       fl: "id title_t score artists_t"
     }
 
+    config.index.document_actions.delete(:bookmark)
+    config.show.document_actions.delete(:bookmark)
+    config.navbar.partials.delete(:bookmark)
+
     # solr path which will be added to solr base url before the other solr params.
     #config.solr_path = 'select'
 
@@ -86,11 +90,13 @@ class CatalogController < ApplicationController
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
+
+
     config.add_facet_fields_to_solr_request!
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'artists_t', label: 'Artists', multi: true
+    config.add_index_field 'artists_t', label: 'Artists', helper: :artists_display
 
 
 

@@ -3,3 +3,9 @@
 @import 'bootstrap';
 
 @import 'blacklight/blacklight';
+
+.navbar-brand {
+  background: image-url("ccj.png") no-repeat top left;
+  background-size: 150px 50px;
+
+}
