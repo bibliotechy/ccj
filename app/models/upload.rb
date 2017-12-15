@@ -3,7 +3,6 @@ class Upload < ApplicationRecord
   mount_uploader :file, ImportUploader
 
   def process_upload
-    binding.pry
     record_count = 0
     open(file.current_path, "rb") do |f|
       CSV.foreach(f, headers: true).each do |row|
