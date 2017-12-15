@@ -13,6 +13,9 @@ class CatalogController < ApplicationController
  end
 
   configure_blacklight do |config|
+
+
+    config.add_nav_action :admin
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
