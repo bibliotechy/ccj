@@ -90,6 +90,10 @@ class CatalogController < ApplicationController
     config.add_facet_field 'media_type_facet', label: "Media Type"
     config.add_facet_field 'media_format_facet', label: 'Media Format'
     config.add_facet_field 'contributors_facet', label: 'Contributors'
+    config.add_facet_field 'film_print_type_facet', label: 'Film Print Type'
+    config.add_facet_field 'bit_depth_facet', label: 'Bit Depth'
+    config.add_facet_field 'dimensions_facet', label: 'Dimensions'
+    config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions'
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
