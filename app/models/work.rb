@@ -9,6 +9,7 @@ class Work < ApplicationRecord
     {
       id: "work_#{id}",
       title_t: title,
+      title_facet: title,
       title_en_t: title_en,
       title_jp_t: title_jp,
       description_en_t: description_en,

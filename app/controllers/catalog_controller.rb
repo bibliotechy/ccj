@@ -86,7 +86,10 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
+    config.add_facet_field 'title_facet', label: 'Title'
     config.add_facet_field 'artists_facet', label: 'Artists'
+    config.add_facet_field 'collection_facet', label: "Collection"
+    config.add_facet_field 'component_type_facet', label: 'Component Type'
     config.add_facet_field 'media_type_facet', label: "Media Type"
     config.add_facet_field 'media_format_facet', label: 'Media Format'
     config.add_facet_field 'contributors_facet', label: 'Contributors'
