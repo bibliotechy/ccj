@@ -60,7 +60,7 @@ class WorkDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how works are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(work)
-  #   "Work ##{work.id}"
-  # end
+  def display_resource(work)
+     "#{work.title}"
+  end
 end

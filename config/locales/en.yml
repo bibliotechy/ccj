@@ -30,6 +30,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  helpers:
+    label:
+      component:
+        local_identifer: Component ID
   work:
     title_en: "English Title"
     title_jp: "Japanese Title"

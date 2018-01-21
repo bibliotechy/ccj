@@ -1,9 +1,9 @@
 <% if component.local_identifer %>
-<% if  component.local_identifer  %>
 <p>
-  <strong>Local identifer:</strong>
+  <h4>
   <%=  component.local_identifer  %>
-</p><% end %>
+</h4>
+</p>
 <% end %>
 
 <% if  component.identifier  %>
@@ -16,12 +16,6 @@
 <p>
   <strong>Previous ids:</strong>
   <%=  component.previous_ids  %>
-</p><% end %>
-
-<% if  link_to(component.work, work_path(component.work))  %>
-<p>
-  <strong>Work:</strong>
-  <%=  link_to(component.work, work_path(component.work))  %>
 </p><% end %>
 
 <p>

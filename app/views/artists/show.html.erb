@@ -23,8 +23,8 @@
 <p>
   <strong>Works </strong>
   <ul>
-    <%= @artist.works.collect do |work| %>
-      <%= content_tag(:li, link_to(work, work_path(work))) %>
+    <%= @artist.works.uniq.collect do |work| %>
+      <%= content_tag(:li, link_to(work, solr_document_url("work_#{work.id}"))) %>
       <% end.join.html_safe %>
   </ul>
 </p>

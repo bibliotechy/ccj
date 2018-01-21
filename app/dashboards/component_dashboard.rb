@@ -29,7 +29,7 @@ class ComponentDashboard < Administrate::BaseDashboard
     film_print_type: Field::String,
     fps: Field::Number,
     brand: Field::String,
-    file_ame: Field::String,
+    file_name: Field::String,
     codec: Field::String,
     codec_id: Field::String,
     file_size_gb: Field::Number.with_options(decimals: 2),
@@ -59,10 +59,10 @@ class ComponentDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :local_identifer,
     :work,
     :artists,
-    :id,
-    :local_identifer,
+    :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -89,7 +89,7 @@ class ComponentDashboard < Administrate::BaseDashboard
     :film_print_type,
     :fps,
     :brand,
-    :file_ame,
+    :file_name,
     :codec,
     :codec_id,
     :file_size_gb,
@@ -137,7 +137,7 @@ class ComponentDashboard < Administrate::BaseDashboard
     :film_print_type,
     :fps,
     :brand,
-    :file_ame,
+    :file_name,
     :codec,
     :codec_id,
     :file_size_gb,

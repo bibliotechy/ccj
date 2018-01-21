@@ -11,6 +11,12 @@
 </p>
 
 <p>
+  <strong>Work ID</strong>
+  <%= @work.id %>
+</p>
+
+
+<p>
   <strong>Description en:</strong>
   <%= @work.description_en %>
 </p>
@@ -21,7 +27,7 @@
 </p>
 
 <p> <strong> Components </strong>
-  <ul>
+  <ul class="work-components" style="list-style-type: none">
     <%= @work.components.collect do |component| %>
       <%= content_tag(:li, link_to(component, component_path(component))) %>
     <% end.join.html_safe %>

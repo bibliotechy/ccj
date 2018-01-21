@@ -6,7 +6,7 @@
 
   <p> <strong> Artists </strong>
     <ul>
-      <%= @work.artists.collect do |artist| %>
+      <%= @work.artists.uniq.collect do |artist| %>
         <%= content_tag(:li, artist.name) %>
       <% end.join.html_safe %>
     </ul>
@@ -23,12 +23,12 @@
       <%= @work.description_jp %>
     </p>
 
-  <p> <strong> Components </strong>
-    <ul>
+<h3>Components</h3>
+  <p>
       <%= @work.components.collect do |component| %>
-      <li>
+      <div>
         <%= render('components/fields', component: component) %>
-      </li>
+      </div>
 
       <% end.join.html_safe %>
     </ul>
