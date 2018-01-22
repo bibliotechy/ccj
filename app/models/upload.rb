@@ -79,7 +79,7 @@ class Upload < ApplicationRecord
 
   def add_component_artist(row)
     artist = Artist.find_or_create_by(name_en: row["Artist name (EN)"]) do |a|
-      a.name_jp = row["Artist_name (JP)"]
+      a.name_jp = row["Artist name (JP)"]
     end
   end
   def has_artist_name?(row)
