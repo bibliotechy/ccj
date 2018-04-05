@@ -1,24 +1,32 @@
-# README
+# Collaborative Cataloging Japan Prototype#
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## A Blacklight App ##
 
-Things you may want to cover:
+### Setup for running locally##
 
-* Ruby version
 
-* System dependencies
+```
+git clone https://github.com/bibliotechy/ccj
 
-* Configuration
+cd ccj
 
-* Database creation
+./bin/setup
 
-* Database initialization
+```
 
-* How to run the test suite
+Setup will 
+* install app dependencies via bundle 
+* run database migrations
+* seed the database with an admin user
+* fetch and start solr
+* start your rails server
 
-* Services (job queues, cache servers, search engines, etc.)
+When that completes, go to http://localhost:3000 in your browser to see the app.
 
-* Deployment instructions
+You can upload content on the [Uploads admin page](http://localhost:3000/admin/uploads) after logging in with:
+* username: admin@ccj.org
+* password: ccjadmin
 
-* ...
+Create a new upload using the files in the `sampledata/` directory.
+
+You uploaded data should now be visible in the Blacklight app at http://localhost:3000

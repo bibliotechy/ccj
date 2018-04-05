@@ -1,0 +1,54 @@
+Title (EN),Title (JP),ID,Component ID,Component Name,Previous ID,Artist name (EN),Artist name (JP),Description (EN),Description (JP),Contributors (EN),Contributors (JP),Creation Date ,Color,Sound,Run time (HH:MM:SS),Media Type,Media Format,Component Type,Relation,Film Print Type ,FPS,Brand,Location,File Name,Codec,Codec ID,File Size (GB),Duration,Bit Rate,Dimensions,Display Aspect Ratio,Bit Depth,Scan Type,Encoded Date,Provenance,Viewing Restrictions,Terms of Governing Use,Housing Annotations ,Item Annotations　 ,Condition Notes ,Notes,Date of Entry (YYYY-MM-DD),Cataloger
+Party,パーティ,40100181（収蔵年2014）,Test40100181_1,作品,なし,MIYAI Rikuro,宮井陸郎,,,,,1970,BW,Silent / サイレント,00:42:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,運送から,Positive / ポジ,Unknown / 不明,,,,,,,,,,,,,,,,著作権は宮井陸郎が保持。,,,,,,
+Party,パーティ,40100181（収蔵年2014）,Test40100181_2,作品デジタル,なし,MIYAI Rikuro,宮井陸郎,,,,,1970,BW,Silent / サイレント,00:42:00,Digital File,,Unknown / 不明,Test40100181_1から作成,,,,LTO07,,Apple Prores422HQ,,,,,,,,,,,,著作権は宮井陸郎が保持。,,,,,,
+Cinematic Illumination,シネマティック・イルミネーション,40100212（収蔵年2016）,Test40100212_1,作品,なし,AZUCHI GULLIVER　Shuzo ,シュウゾウ・アヅチ・ガリバー,,,,,1968~1969,BW,Silent / サイレント,可変,Slides,35mm,Preservation Master / 保存用マスター,運送から,Positive / ポジ,Unknown / 不明,,,,,,,,,,,,,,,,著作権はシュウゾウ・アヅチ・ガリバーが保持。,,,,展示時には音楽あり。,,
+Cinematic Illumination,シネマティック・イルミネーション,40100212（収蔵年2016）,Test40100212_2,作品デジタル,なし,AZUCHI GULLIVER　Shuzo ,シュウゾウ・アヅチ・ガリバー,,,,,1968~1969,BW,Silent / サイレント,可変,Digital File,,Digital Preservation Master / デジタル保存マスター,Test40100212_1から作成,,,,,,,,,,,,,,,,,,著作権はシュウゾウ・アヅチ・ガリバーが保持。,,,,,,
+新宿ステーション,Shinjuku Station,40100218（収蔵年2016）,Test40100218_1,作品,なし,JONOUCHI Motoharu,城之内元晴,,,,,1974,BW,Sound / サウンド,00:15:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,運送から,Positive / ポジ,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,
+新宿ステーション,Shinjuku Station,40100218（収蔵年2016）,Test40100218_２,作品,なし,JONOUCHI Motoharu,城之内元晴,,,,,1974,BW,Sound / サウンド,00:15:00,Digital File,,Unknown / 不明,Test40100218_1から作成,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,,,
+loop siki,loop siki,Test01,Test01_1_1,作品チャンネル１,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Test01_1_2から作成,Positive / ポジ,Unknown / 不明,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+loop siki,loop siki,Test01,Test01_1_2,作品チャンネル１インターネガ,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Film,16mm,Preservation Master / 保存用マスター,作家保持のオリジナルから,Internegative / インターネガ,Unknown / 不明,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+loop siki,loop siki,Test01,Test01_1_3,作品チャンネル１デジタル,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Digital File,,Unknown / 不明,Test01_1_1から作成,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+loop siki,loop siki,Test01,Test01_2_1,作品チャンネル２,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Test01_2_2から作成,Positive / ポジ,Unknown / 不明,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+loop siki,loop siki,Test01,Test01_2_2,作品チャンネル２デジタル,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Film,16mm,Preservation Master / 保存用マスター,作家保持のオリジナルから,Internegative / インターネガ,Unknown / 不明,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+loop siki,loop siki,Test01,Test01_2_3,作品チャンネル１デジタル,なし,OE Masanori,おおえまさのり,,,,,1966,BW,Silent / サイレント,00:02:00,Digital File,,Unknown / 不明,Test01_2_1から作成,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),Test02,Test02_1,作品 (Test03と展覧する場合はチャンネル１）,なし,IIMURA Takahiko,飯村隆彦,,,,,1964,BW,Sound / サウンド,00:12:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Test02_3から作成,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),Test02,Test02_2,作品デジタル,なし,IIMURA Takahiko,飯村隆彦,,,,,1964,BW,Sound / サウンド,00:12:00,Digital File,,Unknown / 不明,Test02_1から作成,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),Test02,Test02_3,トランスファー用,なし,IIMURA Takahiko,飯村隆彦,,,,,1964,BW,Sound / サウンド,00:12:00,Film,35mm,Other / 他,作家保持のオリジナル16mmネガから,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),Test03,Test03_1,作品チャンネル２(Test02と展覧する場合のみ使用）,なし,IIMURA Takahiko,飯村隆彦,,,,,1966,BW,Silent / サイレント,00:12:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Test03_３から作成,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),Test03,Test03_2,作品デジタル,なし,IIMURA Takahiko,飯村隆彦,,,,,1966,BW,Silent / サイレント,00:12:00,Digital File,,Unknown / 不明,Test03_１から作成,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),Test03,Test03_３,トランスファー用,なし,IIMURA Takahiko,飯村隆彦,,,,,1966,BW,Silent / サイレント,00:12:00,Film,16mm,Other / 他,作家保持のオリジナル16mmポジから,Internegative / インターネガ,,,,,,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+Marine Snow,マリーン・スノウ,Test04,Test04_1,作品デジタル,なし,MANABE Hiroshi,真鍋博,,,,,1960,BW,Sound / サウンド,00:23:00,Digital File,,Unknown / 不明,愛媛県美術館より借用した16mmポジから,,,,,,Apple Prores422HQ,,,,,,,,,,,,,,,,愛媛県美術館より借用しデジタル化のみ,,
+Test_0001,Junk,くず,(Work Record),,,"Iimura, Takahiko",飯村隆彦,"""It's a mixture of [dead]animals, pieces of [broken] furniture, industrial waste, kids playing. I didn't have in mind any of the kind of historical perspective, nor was I trying to make an ecological statement. I was showing the new landscape of our civilization. My point of view was animistic. I tried to revive those dead animals metaphorically and to give the junk new life."" (Takahiko Iimura) ""An Interview with Taka Iimura"", Scott MacDonald, Journal of the University Film Association XXXIII,4 (Fall 1981)","「『くず』は、シュールなイメージを効果的に使って消費する工業社会によってゆっくりと進んで行く生態学的な破壊を劇化している。」
+スコット・マクドナルド","Kosugi, Takehisa",小杉 武久,1962,BW,Sound / サウンド,00:12:00,,Film,16mm,,(Work Record),,,,,,,,,,,,,,,,,,,,,,,
+Test_0001,Junk,くず,Test_0001_TI_001,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,N/A,"Iimura, Takahiko",Film,16mm,Original / オリジナル,Atist's original,Positive / ポジ,N/A,,,,,,,,,,,,,,,,Side: 飯村隆彦くず1962、BW、サイレント,"""フィルム：＜Head>　飯村隆彦　くず、サイレント
+リール：くず、サイレント、プリント、1962、（’94）""",,"Iimura states:  He verified there is no sound, the film. The feet information comes from Iimura's list",11/23/2016,"AA, RI"
+Test_0001,Junk,くず,Test_0001_TI_002,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Sound / サウンド,N/A,"Iimura, Takahiko",Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Produced from  TI_001,Positive / ポジ,24fps,,,,,,,,,,,,,,,,"サイド：飯村隆彦、くず、1962、7分、サウンド
+表：IIMURA proA-1、くず、(1962）JUNKS、飯村隆彦、８’、8分、サウンド、プリント1998、24fps、Sound","フィルム：JUNKS <HEAD> Taka Iimura　くず
+リール：JUNKS,くず、1962年、飯村隆彦
+裏：くず、JUNKS,24fps、Sound",,最初は音をつけたけど、音をつけた方がファイナル版,11/23/2016,"AA, RI"
+Test_0001,Junk,くず,Test_0001_TI_003,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,,N/A,"Iimura, Takahiko",Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Produced from  TI_001,,N/A,,,,,,,,,,,,,,,,"サイド：KUZU, (Junks）、1962
+表：KUZU,（JUNKS),1962, 10Min,　B/W, sound,　By Takahiko Iimura (Blowup from 8mm、R.8mm), Music by Takahisa Kosugi、プリント2007","リール：Taka IIMURA,OPT,SND,",,プリントは2007年,11/23/2016,"AA, RI"
+Test_0002,DADA 62,ダダ62,(Work Record),,,"Iimura, Takahiko",飯村隆彦,"Takahiko Iimura. DADA62, a Dadaistic document of a Neo— Dada exhibition in 1962, thus called DADA62 Performed (1963). These actions are extended later ...",DADA62(1962)を使って、1963年に東京の内科画廊でパフォーマンスを行った。映写機を、楽器として使って「フィルムコンサート」と呼んだ。,N/A,N/A,1962,BW,Silent / サイレント,00:10:00,,Film,16mm,,(Work Record),,,,,,,,,,,,,,,,,,,,,,,
+Test_0002,DADA 62,ダダ62,Test_0002_TI_004,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,00:12:00,"Iimura, Takahiko",Film,8mm,Original / オリジナル,Atist's original,Reversal Positive / リバーサル・ポジ,,,,,,,,,,,,,,,,,サイド：DADA62,"リール：DADA62,IIMURA,Original",,Regular 8mm; 撮影オリジナル、８Mmで上映することはない、16ミリが配給,11/23/2016,"AA, RI"
+Test_0002,DADA 62,ダダ62,Test_0002_TI_005,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,00:12:00,"Iimura, Takahiko",Film,Super8,Unknown / 不明,Unknown,Positive / ポジ,,,,,,,,,,,,,,,,,"サイド：DADA62,表Taka Iimura, DADA62,(S.8mm), 1962,10min,slient, BW, Regular8->Super8mm transfer (2001)",DADA 62,, 2001 transferred from Regual8mm to Super 8mm.Made it to screen it on Super8.,11/23/2016,"AA, RI"
+Test_0002,DADA 62,ダダ62,Test_0002_TI_006,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,00:12:00,"Iimura, Takahiko",Film,Super8,Unknown / 不明,Unknown,Positive / ポジ,,,,,,,,,,,,,,,,,"DADA62 (1962), Silent, 12min, For MoMA Jan. 10, 2013, Milwaukee Performance September 24",,,2013 print. ,11/23/2016,"AA, RI"
+Test_0002,DADA 62,ダダ62,Test_0002_TI_007,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,00:12:00,"Iimura, Takahiko",Film,16mm,Preservation Master / 保存用マスター,Unknown,Positive / ポジ,24fps,,,,,,,,,,,,,,,,Side: DADA62 (1962),"Taka Iimura DADA'62, Silent, 24fps",,16mmcopy,11/23/2016,"AA, RI"
+Test_0002,DADA 62,ダダ62,Test_0002_TI_008,,,"Iimura, Takahiko",飯村隆彦,,,,,1962,BW,Silent / サイレント,00:12:00,"Iimura, Takahiko",Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,Unknown,Positive / ポジ,24fps,,,,,,,,,,,,,,,,"TAKA Iimura, DADA 62; Taka Iimura DADA62, 1962, B/W, Silent, 24fps サイレント","Taka Iimura 飯村隆彦DADA62,サイレント、２４fps",,16mm original,11/23/2016,"AA, RI"
