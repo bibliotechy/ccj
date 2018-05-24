@@ -5,7 +5,11 @@ class Upload < ApplicationRecord
   def process_upload
     record_count = 0
     open(file.current_path, "rb") do |f|
-      CSV.foreach(f, headers: true).each do |row|
+      CSV.foreach(f, headers: true).each_with_index do |row, index|
+        unless row.fetch("ID", nil)
+          puts "Row #{index} did not have an ID, and was not ingested"
+          next
+        end
         if is_a_work?(row)
           work_from_row(row)
           record_count += 1
@@ -20,13 +24,14 @@ class Upload < ApplicationRecord
       end
       records_upserted = record_count
       was_ingested = true
+      save
     end
   end
 
   def component_from_row(row)
     Component.find_or_create_by(local_identifer: row["Component ID"]) do |c|
       # Assumes work already exists. Very assy of me
-      c.work = Work.where(local_id: row["ID"]).first_or_create do |work|
+      c.work = Work.find_or_create_by(local_id: row["ID"]) do |work|
         work.title_en = row["Title (EN)"]
         work.title_jp = row["Title (JP)"]
         work.description_en = row["Description (EN)"]
@@ -34,7 +39,8 @@ class Upload < ApplicationRecord
       end
 
       if has_artist_name?(row)
-        c.artists << add_component_artist(row)
+        artist = add_component_artist(row)
+        c.artists << artist unless c.artists.include? artist
       end
 
       c.description_en = row['Description (EN)']

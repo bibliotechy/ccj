@@ -1,6 +1,6 @@
 class Work < ApplicationRecord
   has_many :components
-  has_many :artists, through: :components
+  has_many :artists, -> { distinct }, through: :components
 
   after_save :index_record
 
