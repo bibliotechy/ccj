@@ -15,17 +15,6 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
 
 
-    config.add_nav_action :admin
-    ## Class for sending and receiving requests from a search index
-    # config.repository_class = Blacklight::Solr::Repository
-    #
-    ## Class for converting Blacklight's url parameters to into request parameters for the search index
-    # config.search_builder_class = ::SearchBuilder
-    #
-    ## Model that maps search index responses to the blacklight response model
-    # config.response_model = Blacklight::Solr::Response
-
-    ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       rows: 10,
       fl: "id title_t score artists_t"
@@ -133,45 +122,6 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', label: 'All Fields'
-
-
-    # Now we see how to over-ride Solr request handler defaults, in this
-    # case for a BL "search field", which is really a dismax aggregate
-    # of Solr search fields.
-
-    config.add_search_field('title') do |field|
-      # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
-
-      # :solr_local_parameters will be sent using Solr LocalParams
-      # syntax, as eg {! qf=$title_qf }. This is neccesary to use
-      # Solr parameter de-referencing like $title_qf.
-      # See: http://wiki.apache.org/solr/LocalParams
-      field.solr_local_parameters = {
-        qf: '$title_qf',
-        pf: '$title_pf'
-      }
-    end
-
-    config.add_search_field('author') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
-      field.solr_local_parameters = {
-        qf: '$author_qf',
-        pf: '$author_pf'
-      }
-    end
-
-    # Specifying a :qt only to show it's possible, and so our internal automated
-    # tests can test it. In this case it's the same as
-    # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('subject') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
-      field.qt = 'search'
-      field.solr_local_parameters = {
-        qf: '$subject_qf',
-        pf: '$subject_pf'
-      }
-    end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
