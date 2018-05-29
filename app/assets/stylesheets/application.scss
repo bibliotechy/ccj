@@ -31,16 +31,24 @@
    border-top-left-radius: 4px;
  }
 
-body {
+ #main-container {
+   min-height: 80%;
+ }
+
+body, html {
   min-height: 100%;
   height: 100%;
 }
  footer {
-   min-height: 40px;
    width: 100%;
    clear: both;
    position: relative;
    z-index: 10;
-   height: 3em;
-   margin-top: -3em;
+   height: 4em;
+   margin-top: -4em;
+ }
+
+ .img-splash {
+   margin-top: 3em;
+   margin-bottom: 3em;
  }

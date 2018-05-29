@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   resources :uploads
   mount Blacklight::Engine => '/'
-  root to: "catalog#index"
-    concern :searchable, Blacklight::Routes::Searchable.new
+
+  concern :searchable, Blacklight::Routes::Searchable.new
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
@@ -33,8 +33,11 @@ Rails.application.routes.draw do
     root to: "works#index"
   end
 
-  resources :artists
-  resources :works
-  resources :components
+  resources :artists, only: [:show]
+  resources :works, only: [:show]
+  resources :components, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  root to: 'pages#index'
+  get '/about' => 'pages#about'
 end
