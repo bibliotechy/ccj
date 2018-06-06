@@ -17,7 +17,7 @@ class CatalogController < ApplicationController
 
     config.default_solr_params = {
       rows: 10,
-      fl: "id title_t score artists_t"
+      fl: "id title_en_t title_jp_t score artists_t"
     }
 
     config.index.document_actions.delete(:bookmark)
@@ -42,7 +42,8 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_t'
+    config.index.title_field = 'title_en_t'
+    config.index.title_field_jp = 'title_jp_t'
     config.index.display_type_field = 'format'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
@@ -75,17 +76,16 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'title_facet', label: 'Title'
-    config.add_facet_field 'artists_facet', label: 'Artists'
-    config.add_facet_field 'collection_facet', label: "Collection"
-    config.add_facet_field 'component_type_facet', label: 'Component Type'
-    config.add_facet_field 'media_type_facet', label: "Media Type"
-    config.add_facet_field 'media_format_facet', label: 'Media Format'
-    config.add_facet_field 'contributors_facet', label: 'Contributors'
-    config.add_facet_field 'film_print_type_facet', label: 'Film Print Type'
-    config.add_facet_field 'bit_depth_facet', label: 'Bit Depth'
-    config.add_facet_field 'dimensions_facet', label: 'Dimensions'
-    config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions'
+    #config.add_facet_field 'title_facet', label: 'Title'
+    config.add_facet_field 'artists_facet', label: 'Artists', limit: 5, collapse: false
+    config.add_facet_field 'component_type_facet', label: 'Component Type', limit: 5, collapse: false
+    config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false
+    config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false
+    config.add_facet_field 'contributors_facet', label: 'Contributors', limit: 5, collapse: false
+    config.add_facet_field 'film_print_type_facet', label: 'Film Print Type', limit: 5, collapse: false
+    config.add_facet_field 'bit_depth_facet', label: 'Bit Depth', limit: 5, collapse: false
+    config.add_facet_field 'dimensions_facet', label: 'Dimensions', limit: 5, collapse: false
+    config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions', limit: 5, collapse: false
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
