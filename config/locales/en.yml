@@ -37,5 +37,9 @@ en:
   work:
     title_en: "English Title"
     title_jp: "Japanese Title"
+  component:
+    media_type: Media Type
+    media_format: Media Format
+    notes: Notes
   about: About
   browse: Browse

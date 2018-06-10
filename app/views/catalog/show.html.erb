@@ -1,43 +1,51 @@
 <div id="content" class="<%= show_content_classes %>">
   <p id="notice"><%= notice %></p>
   <h2>
-    <%= @work.title %>
+    <%= @work.title_en %>
+    <br />
+    <div>
+      <%= @work.title_jp %>
+    </div>
   </h2>
 
-  <p> <strong> Artists </strong>
-    <ul>
-      <%= @work.artists.uniq.collect do |artist| %>
-        <%= content_tag(:li, artist.name) %>
-      <% end.join.html_safe %>
-    </ul>
-  </p>
+  <ul class="list-unstyled">
+    <%= @work.artists.collect do |artist| %>
+      <%= content_tag(:li, content_tag(:h3, artist.name)) %>
+    <% end.join.html_safe %>
+  </ul>
 
-
-    <p>
-      <strong>Description</strong>
-    </p>
-    <p>
-      <%= @work.description_en %>
-      <br />
-      <br />
-      <%= @work.description_jp %>
-    </p>
-
-<h3>Components</h3>
-  <p>
-      <%= @work.components.collect do |component| %>
-      <div>
-        <%= render('components/fields', component: component) %>
+  <row class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h4> Description </h4>
+        <%= @work.description_en %>
+        <br />
+        <%= @work.description_jp %>
       </div>
+      <div class="col-md-6">
+        <h4> Components (<%= @components.count %>)</h4>
+        <div class="components-on-work-page">
+          <ul class="list-unstyled">
+          <%= @components.enum_for(:each_with_index).collect do |component, index| %>
+            <li class="component-list-item">
+              <h5>Component <%= index + 1 %></h5>
+              <ul class="list-unstyled">
+              <%= component.collect do |k,v| %>
+              <% #binding.pry %>
+                <li>
+                  <strong><%= t("component.#{k}") %>:</strong> <%= v %>
+                </li>
+              <% end.join.html_safe %>
+            </ul>
+            </li>
+            <% unless index+1 >= @components.count %>
+              <hr>
+            <% end %>
 
-      <% end.join.html_safe %>
-    </ul>
-  </p>
-
-
-  <p>
-    <strong>Local:</strong>
-    <%= @work.local_id %>
-  </p>
-
+          <% end.join.html_safe %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
