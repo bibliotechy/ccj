@@ -10,7 +10,7 @@
 
   <ul class="list-unstyled">
     <%= @work.artists.collect do |artist| %>
-      <%= content_tag(:li, content_tag(:h3, artist.name)) %>
+      <%= content_tag(:li, content_tag(:h3, link_to(artist.name, artist_path(artist.id)))) %>
     <% end.join.html_safe %>
   </ul>
 
@@ -23,14 +23,14 @@
         <%= @work.description_jp %>
       </div>
       <div class="col-md-6">
-        <h4> Components (<%= @components.count %>)</h4>
+        <h4> Components (<%= @work.components.count %>)</h4>
         <div class="components-on-work-page">
           <ul class="list-unstyled">
-          <%= @components.enum_for(:each_with_index).collect do |component, index| %>
+          <%= @work.components.each_with_index.collect do |component, index| %>
             <li class="component-list-item">
-              <h5>Component <%= index + 1 %></h5>
+              <h5><%= link_to("Component #{index + 1}", component_path(component)) %></h5>
               <ul class="list-unstyled">
-              <%= component.collect do |k,v| %>
+              <%= work_page_fields(component).collect do |k,v| %>
               <% #binding.pry %>
                 <li>
                   <strong><%= t("component.#{k}") %>:</strong> <%= v %>
@@ -38,7 +38,7 @@
               <% end.join.html_safe %>
             </ul>
             </li>
-            <% unless index+1 >= @components.count %>
+            <% unless index+1 >= @work.components.count %>
               <hr>
             <% end %>
 

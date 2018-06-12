@@ -1,10 +1,17 @@
 <% if component.local_identifer %>
-<p>
-  <h4>
-  <%=  component.local_identifer  %>
-</h4>
-</p>
+  <h2><%= component.local_identifer  %>
+    <span class="subtitle">
+      component of <%= link_to component.work.title, solr_document_path(component.work.id) %>
+    </span>
+  </h2>
+
 <% end %>
+
+<ul class="list-unstyled">
+  <%= component.artists.collect do |artist| %>
+    <%= content_tag(:li, content_tag(:h4, link_to(artist.name, artist_path(artist.id)))) %>
+  <% end.join.html_safe %>
+</ul>
 
 <% if  component.identifier  %>
 <p>
@@ -17,15 +24,6 @@
   <strong>Previous ids:</strong>
   <%=  component.previous_ids  %>
 </p><% end %>
-
-<p>
-  <strong>Artists:</strong>
-  <ul>
-    <%= component.artists.collect do |artist| %>
-    <li><%= link_to(artist, artist_path(artist)) %></li>
-    <% end.join.html_safe %>
-  </ul>
-</p>
 
 <% if  component.description_en  %>
 <p>

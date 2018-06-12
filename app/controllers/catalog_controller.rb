@@ -3,23 +3,13 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+
   def show
-    id = params[:id].split("_")[1]
+    pid = params[:id]
+    binding
+    id = pid.include?("_") ? pid.split("_")[1] : pid
     @work = Work.find(id)
-    component_fields = %i[
-      local_identifer color sound run_time
-      media_type media_format component_type
-      film_print_type notes
-    ]
-    @components = @work.components.map do |component|
-      field_subset_hash = {}
-      component_fields.each do |cf|
-        val = component.respond_to?(cf) ? component.send(cf) : nil
-        field_subset_hash[cf] = val unless val.nil?
-      end
-      field_subset_hash
-    end
-   respond_to do |format|
+    respond_to do |format|
      format.html  # {setup_next_and_previous_documents }
      #format.json { render json: { response: { document: @document } } }
    end
