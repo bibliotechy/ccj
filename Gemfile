@@ -56,7 +56,7 @@ gem 'administrate'
 gem 'blacklight'
 
 group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
+  gem 'solr_wrapper', '>= 2.0'
   gem 'pry'
 end
 
