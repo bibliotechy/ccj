@@ -2,6 +2,15 @@
 class SolrDocument
   include Blacklight::Solr::Document
 
+  def initialize(source_doc = {}, response = nil)
+    super(source_doc, response)
+    self['combined_title'] = combined_title
+  end
+
+  def combined_title
+    "#{self['title_en_t'].join(' ')} / #{self['title_jp_t'].join(' ')}"
+  end
+
   # self.unique_key = 'id'
 
   # Email uses the semantic field mappings below to generate the body of an email.
@@ -16,4 +25,7 @@ class SolrDocument
   # and Blacklight::Document::SemanticFields#to_semantic_values
   # Recommendation: Use field names from Dublin Core
   use_extension(Blacklight::Document::DublinCore)
+
+
+
 end

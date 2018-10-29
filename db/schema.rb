@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209153227) do
+ActiveRecord::Schema.define(version: 20181005174917) do
 
   create_table "artists", force: :cascade do |t|
     t.text "name_en"
@@ -57,12 +57,10 @@ ActiveRecord::Schema.define(version: 20171209153227) do
     t.string "media_format"
     t.string "component_type"
     t.string "relation"
-    t.string "film_print_type"
+    t.string "film_process_type"
     t.integer "fps"
     t.string "brand"
     t.string "file_name"
-    t.string "codec"
-    t.string "codec_id"
     t.float "file_size_gb"
     t.string "duration"
     t.string "bit_rate"
@@ -82,6 +80,14 @@ ActiveRecord::Schema.define(version: 20171209153227) do
     t.string "cataloger"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "film_element"
+    t.string "film_wind"
+    t.string "audio_speed"
+    t.string "audio_reel_size"
+    t.string "audio_reel_capacity"
+    t.string "video_stock_length"
+    t.string "video_standard"
+    t.text "codecs"
     t.index ["work_id"], name: "index_components_on_work_id"
   end
 

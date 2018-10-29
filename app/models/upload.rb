@@ -22,8 +22,8 @@ class Upload < ApplicationRecord
 
         end
       end
-      records_upserted = record_count
-      was_ingested = true
+      self.records_upserted = record_count
+      self.was_ingested = true
       save
     end
   end
@@ -56,12 +56,17 @@ class Upload < ApplicationRecord
       c.media_format = row['Media Format']
       c.component_type = row['Component Type']
       c.relation = row['Relation']
-      c.film_print_type = row['Film Print Type ']
+      c.film_process_type = row['Film Process Type']
       c.fps = row['FPS']
+      c.film_wind = row['Film Wind']
       c.brand = row['Brand']
+      c.audio_speed = row['Audio Speed']
+      c.audio_reel_size = row['Audio Reel Size']
+      c.audio_reel_capacity = row['Audio Reel Capacity']
+      c.video_stock_length = row['Video Stock Length']
+      c.video_standard = row['Video Standard']
       c.file_name = row['File Name']
-      c.codec = row['Codec']
-      c.codec_id = row['Codec ID']
+      c.codecs = (row['Codecs'] || row['Codec'])
       c.file_size_gb = row['File Size (GB)']
       c.duration = row['Duration']
       c.bit_rate = row['Bit Rate']
@@ -79,15 +84,19 @@ class Upload < ApplicationRecord
       c.notes = row['Notes']
       c.date_of_entry = row['Date of Entry (MM-DD-YYYY)']
       c.cataloger = row['Cataloger']
+
+      # deprecated, but here for backwards compatability
+      c.film_process_type = row['Film Print Type ']
+
     end
   end
 
-
   def add_component_artist(row)
-    artist = Artist.find_or_create_by(name_en: row["Artist name (EN)"]) do |a|
+    Artist.find_or_create_by(name_en: row["Artist name (EN)"]) do |a|
       a.name_jp = row["Artist name (JP)"]
     end
   end
+
   def has_artist_name?(row)
     !row["Artist name (JP)"].nil? or !row["Artist name (EN)"].nil?
   end

@@ -6,8 +6,10 @@ class Work < ApplicationRecord
 
   def to_solr
       # *_texts here is a dynamic field type specified in solrconfig.xml
+      binding.pry
     {
       id: "work_#{id}",
+      local_id_t: local_id,
       title_t: title,
       title_facet: title,
       title_en_t: title_en,
@@ -15,6 +17,7 @@ class Work < ApplicationRecord
       description_en_t: description_en,
       description_jp_t: description_jp,
       artists_t: artists.uniq.map(&:to_s),
+      artists_en_t: artists.uniq.map(&:name_en),
       artists_facet: artists.uniq.map(&:to_s),
     }.merge(components_solr)
   end

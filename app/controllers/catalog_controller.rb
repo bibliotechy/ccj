@@ -12,15 +12,27 @@ class CatalogController < ApplicationController
     respond_to do |format|
      format.html  # {setup_next_and_previous_documents }
      #format.json { render json: { response: { document: @document } } }
-   end
- end
+    end
+  end
 
   configure_blacklight do |config|
 
 
     config.default_solr_params = {
       rows: 10,
-      fl: "id title_en_t title_jp_t score artists_t"
+      fl: %q[
+        id
+        artists_en_t
+        local_identifer_t
+        pub_date
+        score
+        title_en_t
+        title_jp_t
+        color_t
+        sound_t
+        run_time_t         
+      ]
+
     }
 
     config.index.document_actions.delete(:bookmark)
@@ -45,8 +57,8 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_en_t'
-    config.index.title_field_jp = 'title_jp_t'
+    config.index.title_field = 'combined_title'
+
     config.index.display_type_field = 'format'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
