@@ -5,10 +5,10 @@
   <%= document['artists_en_t']&.to_sentence %>
   </div>
   <div class="col-md-12">
-    <%= document['local_identifer_t']&.to_sentence %>
+    <%= document['local_id_t']&.to_sentence %>
   </div>
   <div class="col-md-12">
-    <%= document['pub_date'] %>
+    <%= document['pub_date']&.uniq&.to_sentence %>
   </div>
   <div class="col-md-12">
     <%= work_details(document) %>

@@ -9,9 +9,11 @@ class UpdateFieldsInMigration < ActiveRecord::Migration[5.1]
       t.string :video_stock_length
       t.string :video_standard
       t.text   :codecs
+      t.string :creation_date
     end
     rename_column :components, :film_print_type, :film_process_type
     remove_column :components, :codec, :string
     remove_column :components, :codec_id, :string
+    change_column(:components, :creation_date, :string)
   end
 end

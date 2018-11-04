@@ -29,6 +29,7 @@ class Upload < ApplicationRecord
   end
 
   def component_from_row(row)
+
     Component.find_or_create_by(local_identifer: row["Component ID"]) do |c|
       # Assumes work already exists. Very assy of me
       c.work = Work.find_or_create_by(local_id: row["ID"]) do |work|
@@ -43,11 +44,12 @@ class Upload < ApplicationRecord
         c.artists << artist unless c.artists.include? artist
       end
 
+
       c.description_en = row['Description (EN)']
       c.description_jp = row['Description (JP)']
       c.contributors_en = row['Contributors (EN)']
       c.contributors_jp = row['Contributors (JP)']
-      c.creation_date = row['Creation Date ']
+      c.creation_date = row['Creation Date'].to_i
       c.color = row['Color']
       c.sound = row['Sound']
       c.run_time = row['Run time (HH:MM:SS)']
@@ -79,14 +81,14 @@ class Upload < ApplicationRecord
       c.viewing_restrictions = row['Viewing Restrictions']
       c.terms_governing_use = row['Terms of Governing Use']
       c.housing_annotations = row['Housing Annotations ']
-      c.item_annotations = row['Item Annotations\xE3\x80\x80 ']
-      c.condition_notes = row['Condition Notes ']
+      c.item_annotations = row['Item Annotations']
+      c.condition_notes = row['Condition Notes']
       c.notes = row['Notes']
       c.date_of_entry = row['Date of Entry (MM-DD-YYYY)']
       c.cataloger = row['Cataloger']
 
       # deprecated, but here for backwards compatability
-      c.film_process_type = row['Film Print Type ']
+      c.film_process_type = row['Film Print Type']
 
     end
   end

@@ -1,6 +1,6 @@
 class Component < ApplicationRecord
   belongs_to :work
-  has_and_belongs_to_many :artists
+  has_and_belongs_to_many :artists, dependent: :destroy
 
   after_save :index_work_record
 

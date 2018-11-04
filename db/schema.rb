@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20181005174917) do
     t.text "description_jp"
     t.string "contributors_en"
     t.string "contributors_jp"
-    t.date "creation_date"
+    t.string "creation_date"
     t.string "color"
     t.string "sound"
     t.datetime "run_time"
