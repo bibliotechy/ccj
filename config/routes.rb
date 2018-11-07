@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :uploads
   mount Blacklight::Engine => '/'
 
   concern :searchable, Blacklight::Routes::Searchable.new
@@ -28,6 +27,7 @@ Rails.application.routes.draw do
     resources :artists
     resources :components
     resources :works
+    resources :collections
     resources :uploads
 
     root to: "works#index"
@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :artists, only: [:show]
   resources :works, only: [:show]
   resources :components, only: [:show]
+  resources :collections, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: 'pages#index'

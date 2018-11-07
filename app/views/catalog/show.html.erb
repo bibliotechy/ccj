@@ -27,7 +27,6 @@
               <h5><%= link_to("Component #{index + 1}", component_path(component)) %></h5>
               <ul class="list-unstyled">
               <%= work_page_fields(component).collect do |k,v| %>
-              <% #binding.pry %>
                 <li>
                   <strong><%= t("component.#{k}") %>:</strong> <%= v %>
                 </li>

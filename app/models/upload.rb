@@ -44,6 +44,10 @@ class Upload < ApplicationRecord
         c.artists << artist unless c.artists.include? artist
       end
 
+      if has_collection?(row)
+        c.collection = add_component_collection(row)
+      end
+
 
       c.description_en = row['Description (EN)']
       c.description_jp = row['Description (JP)']
@@ -53,7 +57,6 @@ class Upload < ApplicationRecord
       c.color = row['Color']
       c.sound = row['Sound']
       c.run_time = row['Run time (HH:MM:SS)']
-      c.collection = row['Collection']
       c.media_type = row['Media Type']
       c.media_format = row['Media Format']
       c.component_type = row['Component Type']
@@ -99,8 +102,16 @@ class Upload < ApplicationRecord
     end
   end
 
+  def add_component_collection(row)
+    Collection.find_or_create_by(name_en: row["Collection"])
+  end
+
   def has_artist_name?(row)
     !row["Artist name (JP)"].nil? or !row["Artist name (EN)"].nil?
+  end
+
+  def has_collection?(row)
+    !row["Collection"].nil?
   end
 
   def work_from_row(row)

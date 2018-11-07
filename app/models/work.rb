@@ -34,7 +34,6 @@ class Work < ApplicationRecord
     components.map(&:to_solr)
     .each do |pairs|
       pairs.each do |k,v|
-        binding.pry if k == :pub_date
         (return_hash[k] ||= []) << v unless v.nil?
       end
     end

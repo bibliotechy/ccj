@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005174917) do
+ActiveRecord::Schema.define(version: 20181107032430) do
 
   create_table "artists", force: :cascade do |t|
     t.text "name_en"
@@ -38,56 +38,72 @@ ActiveRecord::Schema.define(version: 20181005174917) do
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
-  create_table "components", force: :cascade do |t|
-    t.string "name"
-    t.string "local_identifer"
-    t.string "identifier"
-    t.string "previous_ids"
-    t.integer "work_id"
+  create_table "collections", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_jp"
+    t.string "website"
+    t.text "viewing_policy_en"
+    t.text "viewing_policy_jp"
+    t.text "contact_information_en"
+    t.text "contact_information_jp"
     t.text "description_en"
     t.text "description_jp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "components", force: :cascade do |t|
+    t.string "audio_reel_capacity"
+    t.string "audio_reel_size"
+    t.string "audio_speed"
+    t.string "bit_depth"
+    t.string "bit_rate"
+    t.string "brand"
+    t.string "cataloger"
+    t.string "collection"
+    t.string "color"
+    t.string "component_type"
     t.string "contributors_en"
     t.string "contributors_jp"
     t.string "creation_date"
-    t.string "color"
-    t.string "sound"
-    t.datetime "run_time"
-    t.string "collection"
-    t.string "media_type"
-    t.string "media_format"
-    t.string "component_type"
-    t.string "relation"
-    t.string "film_process_type"
-    t.integer "fps"
-    t.string "brand"
-    t.string "file_name"
-    t.float "file_size_gb"
-    t.string "duration"
-    t.string "bit_rate"
+    t.string "date_of_entry"
     t.string "dimensions"
     t.string "display_aspect_ratio"
-    t.string "bit_depth"
+    t.string "duration"
+    t.string "encoded_date"
+    t.string "file_name"
+    t.string "file_size_gb"
+    t.string "film_element"
+    t.string "film_process_type"
+    t.string "film_wind"
+    t.string "fps"
+    t.string "identifier"
+    t.string "local_identifer"
+    t.string "media_format"
+    t.string "media_type"
+    t.string "name"
+    t.string "previous_ids"
+    t.string "relation"
+    t.string "run_time"
     t.string "scan_type"
-    t.datetime "encoded_date"
-    t.text "provenance"
-    t.text "viewing_restrictions"
-    t.text "terms_governing_use"
+    t.string "sound"
+    t.string "video_standard"
+    t.string "video_stock_length"
+    t.text "codecs"
+    t.text "condition_notes"
+    t.text "description_en"
+    t.text "description_jp"
     t.text "housing_annotations"
     t.text "item_annotations"
-    t.text "condition_notes"
+    t.text "provenance"
     t.text "notes"
-    t.date "date_of_entry"
-    t.string "cataloger"
+    t.text "terms_governing_use"
+    t.text "viewing_restrictions"
+    t.integer "collection_id"
+    t.integer "work_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "film_element"
-    t.string "film_wind"
-    t.string "audio_speed"
-    t.string "audio_reel_size"
-    t.string "audio_reel_capacity"
-    t.string "video_stock_length"
-    t.string "video_standard"
-    t.text "codecs"
+    t.index ["collection_id"], name: "index_components_on_collection_id"
     t.index ["work_id"], name: "index_components_on_work_id"
   end
 
@@ -135,6 +151,8 @@ ActiveRecord::Schema.define(version: 20181005174917) do
     t.string "local_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "collection_id"
+    t.index ["collection_id"], name: "index_works_on_collection_id"
   end
 
 end
