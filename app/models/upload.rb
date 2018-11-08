@@ -2,9 +2,11 @@ require 'csv'
 class Upload < ApplicationRecord
   mount_uploader :file, ImportUploader
 
-  def process_upload
+
+  def process_upload(upload_file_path = nil)
+    upload_file_path ||= file.current_path
     record_count = 0
-    open(file.current_path, "rb") do |f|
+    open(upload_file_path, "rb") do |f|
       CSV.foreach(f, headers: true).each_with_index do |row, index|
         unless row.fetch("ID", nil)
           puts "Row #{index} did not have an ID, and was not ingested"

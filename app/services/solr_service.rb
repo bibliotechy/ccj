@@ -5,6 +5,8 @@ module SolrService
 
   def self.delete(id)
     connection.delete_by_id(id)
+    puts "Deleted solr record #{id}"
+    connection.commit
   end
 
   def self.connection
