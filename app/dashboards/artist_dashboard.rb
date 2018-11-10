@@ -32,8 +32,8 @@ class ArtistDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :components,
     :works,
+    :components,
     :id,
     :name_en,
     :name_jp,
@@ -47,8 +47,8 @@ class ArtistDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :components,
     :works,
+    :components,
     :name_en,
     :name_jp,
     :viaf_identifier,
