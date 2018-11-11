@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_024101) do
     t.text "name_jp"
     t.string "viaf_identifier"
     t.string "local_identifier"
+    t.text "description_en"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

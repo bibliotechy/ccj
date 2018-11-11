@@ -22,21 +22,23 @@
         <h4> Components (<%= @work.components.count %>)</h4>
         <div class="components-on-work-page">
           <ul class="list-unstyled">
-          <%= @work.components.each_with_index.collect do |component, index| %>
-            <li class="component-list-item">
-              <h5><%= link_to("Component #{index + 1}", component_path(component)) %></h5>
-              <ul class="list-unstyled">
-              <%= work_page_fields(component).collect do |k,v| %>
-                <li>
-                  <strong><%= t("component.#{k}") %>:</strong> <%= v %>
-                </li>
-              <% end.join.html_safe %>
-            </ul>
-            </li>
-            <% unless index+1 >= @work.components.count %>
+          <%= @work.components.group_by(&:collection).collect do |collection, components| %>
+            <h5> Held By: <%= collection %></h5>
+              <%= components.each_with_index.collect do |component, index| %>
+              <li class="component-list-item">
+                <h6><%= link_to("#{component}", component_path(component)) %></h6>
+                <ul class="list-unstyled">
+                <%= work_page_fields(component).collect do |k,v| %>
+                  <li>
+                    <strong><%= t("component.#{k}") %>:</strong> <%= v %>
+                  </li>
+                <% end.join.html_safe %>
+                </ul>
+              </li>
+              <% unless index+1 >= components.count %>
               <hr>
-            <% end %>
-
+              <% end %>
+              <% end.join.html_safe %>
           <% end.join.html_safe %>
           </ul>
         </div>

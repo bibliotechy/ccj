@@ -1,9 +1,9 @@
 module ComponentsHelper
   def work_page_fields(component)
     component_fields = %i[
-      local_identifer color sound run_time
-      media_type media_format component_type
-      film_print_type notes
+      color sound run_time media_type media_format
+      creation_date description_en description_jp
+
     ]
     field_subset_hash = {}
     component_fields.each do |cf|

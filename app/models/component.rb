@@ -65,6 +65,6 @@ class Component < ApplicationRecord
   end
 
   def to_s
-    identifier
+    local_identifer
   end
 end

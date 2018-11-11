@@ -1,7 +1,19 @@
 # frozen_string_literal: true
 class CatalogController < ApplicationController
-
   include Blacklight::Catalog
+
+  before_action :add_facet_context, only: [:index]
+  def add_facet_context
+    if params['f']
+      artist_name = params.dig('f','artists_facet')
+      if artist_name && artist_name.size == 1
+        artist_name_en = artist_name.first.split("/").first.strip
+        @context = Artist.find_by(name_en: artist_name_en)
+      end
+    end
+  end
+
+
 
 
   def show

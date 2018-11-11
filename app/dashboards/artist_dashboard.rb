@@ -17,6 +17,8 @@ class ArtistDashboard < Administrate::BaseDashboard
     local_identifier: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    image: Field::ActiveStorage,
+    description_en: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -39,6 +41,8 @@ class ArtistDashboard < Administrate::BaseDashboard
     :name_jp,
     :viaf_identifier,
     :local_identifier,
+    :description_en,
+    :image,
     :created_at,
     :updated_at,
   ].freeze
@@ -53,6 +57,8 @@ class ArtistDashboard < Administrate::BaseDashboard
     :name_jp,
     :viaf_identifier,
     :local_identifier,
+    :description_en,
+    :image
   ].freeze
 
   # Overwrite this method to customize how artists are displayed

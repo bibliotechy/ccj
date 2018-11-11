@@ -5,6 +5,7 @@ class Work < ApplicationRecord
   after_save :index_record
   after_destroy :delete_solr_record
 
+
   def solr_id
     "work_#{id}"
   end
