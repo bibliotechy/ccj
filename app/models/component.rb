@@ -1,11 +1,12 @@
 class Component < ApplicationRecord
   belongs_to :work
-  has_and_belongs_to_many :artists
+  belongs_to :collection
+  has_and_belongs_to_many :artists, dependent: :destroy
 
   after_save :index_work_record
 
   def index_work_record
-    Work.find(work_id).index_record
+    Work.find(work_id).index_record if work_id
   end
 
   def to_solr
@@ -18,8 +19,8 @@ class Component < ApplicationRecord
       color_t: color,
       sound_t: sound,
       run_time_t: run_time,
-      collection_t: collection,
-      collection_facet: collection,
+      collection_t: collection.name_en,
+      collection_facet: collection.name_en,
       media_type_t: media_type,
       media_type_facet: media_type,
       media_format_t: media_format,
@@ -27,13 +28,19 @@ class Component < ApplicationRecord
       component_type_t: component_type,
       component_type_facet: component_type,
       relation_t: relation,
-      film_print_type_t: film_print_type,
-      film_print_type_facet: film_print_type,
+      film_process_type_t: film_process_type,
+      film_process_type_facet: film_process_type,
+      film_element_t: film_element,
+      film_wind_t: film_wind,
+      audio_speed_t: audio_speed,
+      audio_reel_size_t: audio_reel_size,
+      audio_reel_capacity_t: audio_reel_capacity,
+      video_stock_length_t: video_stock_length,
+      video_standard_t: video_standard,
       fps_t: fps,
       brand_t: brand,
       file_name_t: file_name,
-      codec_t: codec,
-      codec_id_t: codec_id,
+      codec_t: codecs,
       file_size_gb_t: file_size_gb,
       duration_t: duration,
       bit_rate_t: bit_rate,
@@ -54,10 +61,11 @@ class Component < ApplicationRecord
       notes_t: notes,
       date_of_entry_t: date_of_entry,
       cataloger_t: cataloger,
+      pub_date: creation_date,
     }
   end
 
   def to_s
-    identifier
+    local_identifer
   end
 end

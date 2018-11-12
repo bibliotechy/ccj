@@ -1,6 +1,8 @@
 class Artist < ApplicationRecord
   has_and_belongs_to_many :components
-  has_many :works, through: :components
+  has_many :works, -> { distinct }, through: :components
+  has_one_attached :image
+
 
   after_save :index_work_record
 

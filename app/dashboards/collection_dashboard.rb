@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ArtistDashboard < Administrate::BaseDashboard
+class CollectionDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,19 +8,19 @@ class ArtistDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    components: Field::HasMany,
     works: Field::HasMany,
     id: Field::Number,
     name_en: Field::String,
     name_jp: Field::String,
-    viaf_identifier: Field::String,
-    local_identifier: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    image: Field::ActiveStorage,
+    website: Field::String,
+    viewing_policy_en: Field::Text,
+    viewing_policy_jp: Field::Text,
+    contact_information_en: Field::Text,
+    contact_information_jp: Field::Text,
     description_en: Field::Text,
     description_jp: Field::Text,
-    external_link: Field::String,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -31,21 +31,23 @@ class ArtistDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :name_en,
     :name_jp,
+    :works,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :works,
-    :components,
     :id,
     :name_en,
     :name_jp,
     :description_en,
     :description_jp,
-    :image,
-    :viaf_identifier,
-    :local_identifier,
+    :website,
+    :viewing_policy_en,
+    :viewing_policy_jp,
+    :contact_information_en,
+    :contact_information_jp,
+    :works,
     :created_at,
     :updated_at,
   ].freeze
@@ -54,22 +56,22 @@ class ArtistDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :works,
-    :components,
     :name_en,
     :name_jp,
+    :website,
+    :viewing_policy_en,
+    :viewing_policy_jp,
+    :contact_information_en,
+    :contact_information_jp,
     :description_en,
     :description_jp,
-    :external_link,
-    :image,
-    :viaf_identifier,
-    :local_identifier,
+    :works,
   ].freeze
 
-  # Overwrite this method to customize how artists are displayed
+  # Overwrite this method to customize how collections are displayed
   # across all pages of the admin dashboard.
   #
-   def display_resource(artist)
-     artist.name
-   end
+  # def display_resource(collection)
+  #   "Collection ##{collection.id}"
+  # end
 end

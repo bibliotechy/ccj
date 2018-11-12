@@ -9,6 +9,7 @@ class ComponentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     work: Field::BelongsTo,
+    collection: Field::BelongsTo,
     artists: Field::HasMany,
     id: Field::Number,
     local_identifer: Field::String,
@@ -21,7 +22,6 @@ class ComponentDashboard < Administrate::BaseDashboard
     color: Field::String,
     sound: Field::String,
     run_time: Field::DateTime,
-    collection: Field::String,
     media_type: Field::String,
     media_format: Field::String,
     component_type: Field::String,

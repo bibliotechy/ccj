@@ -1,0 +1,16 @@
+<% doc_presenter = index_presenter(document) %>
+
+<div class="col-md-12 metadata-fields">
+  <div class="index-artist-name">
+  <%= document['artists_en_t']&.to_sentence %>
+  </div>
+  <div class="col-md-12">
+    <%= document['local_id_t']&.to_sentence %>
+  </div>
+  <div class="col-md-12">
+    <%= document['pub_date']&.uniq&.to_sentence %>
+  </div>
+  <div class="col-md-12">
+    <%= work_details(document) %>
+  </div>
+</div>

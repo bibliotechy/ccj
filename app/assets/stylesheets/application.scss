@@ -65,3 +65,21 @@ body, html {
 .subtitle {
   font-size: .8em;
 }
+
+#documents .document .document-title-heading {
+  font-size: 2em;
+}
+
+.index-artist-name {
+  font-size: 1.5em;
+}
+
+.index-context {
+  font-size: .85em;
+
+  .artist-name {
+    font-size: 1em;
+    font-weight: bolder;
+    margin-bottom: 1.1em;
+  }
+}

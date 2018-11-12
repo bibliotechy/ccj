@@ -1,26 +1,51 @@
 # frozen_string_literal: true
 class CatalogController < ApplicationController
-
   include Blacklight::Catalog
+
+  before_action :add_facet_context, only: [:index]
+  def add_facet_context
+    if params['f']
+      if params['f']['artists_facet']&.size == 1
+        artist_name_en = params['f']['artists_facet']&.first&.split("/")&.first&.strip
+        @context = Artist.find_by(name_en: artist_name_en) if artist_name_en
+      elsif params['f']['collection_facet']&.size == 1
+        collection_name_en = params['f']['collection_facet']&.first&.strip
+        @context = Collection.find_by(name_en: collection_name_en)
+      end
+    end
+  end
+
+
 
 
   def show
     pid = params[:id]
-    binding
     id = pid.include?("_") ? pid.split("_")[1] : pid
     @work = Work.find(id)
     respond_to do |format|
      format.html  # {setup_next_and_previous_documents }
      #format.json { render json: { response: { document: @document } } }
-   end
- end
+    end
+  end
 
   configure_blacklight do |config|
 
 
     config.default_solr_params = {
       rows: 10,
-      fl: "id title_en_t title_jp_t score artists_t"
+      fl: %q[
+        id
+        artists_en_t
+        local_id_t
+        pub_date
+        score
+        title_en_t
+        title_jp_t
+        color_t
+        sound_t
+        run_time_t
+      ]
+
     }
 
     config.index.document_actions.delete(:bookmark)
@@ -45,53 +70,23 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_en_t'
-    config.index.title_field_jp = 'title_jp_t'
+    config.index.title_field = 'combined_title'
+
     config.index.display_type_field = 'format'
-    #config.index.thumbnail_field = 'thumbnail_path_ss'
 
-    # solr field configuration for document/show views
-    #config.show.title_field = 'title_display'
-    #config.show.display_type_field = 'format'
-    #config.show.thumbnail_field = 'thumbnail_path_ss'
-
-    # solr fields that will be treated as facets by the blacklight application
-    #   The ordering of the field names is the order of the display
-    #
-    # Setting a limit will trigger Blacklight's 'more' facet values link.
-    # * If left unset, then all facet values returned by solr will be displayed.
-    # * If set to an integer, then "f.somefield.facet.limit" will be added to
-    # solr request, with actual solr request being +1 your configured limit --
-    # you configure the number of items you actually want _displayed_ in a page.
-    # * If set to 'true', then no additional parameters will be sent to solr,
-    # but any 'sniffed' request limit parameters will be used for paging, with
-    # paging at requested limit -1. Can sniff from facet.limit or
-    # f.specific_field.facet.limit solr request params. This 'true' config
-    # can be used if you set limits in :default_solr_params, or as defaults
-    # on the solr side in the request handler itself. Request handler defaults
-    # sniffing requires solr requests to be made with "echoParams=all", for
-    # app code to actually have it echo'd back to see it.
-    #
-    # :show may be set to false if you don't want the facet to be drawn in the
-    # facet bar
-    #
-    # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
-    #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
-    # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
-
-    #config.add_facet_field 'title_facet', label: 'Title'
     config.add_facet_field 'artists_facet', label: 'Artists', limit: 5, collapse: false
-    config.add_facet_field 'component_type_facet', label: 'Component Type', limit: 5, collapse: false
-    config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false
-    config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false
+    config.add_facet_field 'decades_facet', label: "Decade", collapse: false
     config.add_facet_field 'contributors_facet', label: 'Contributors', limit: 5, collapse: false
     config.add_facet_field 'film_print_type_facet', label: 'Film Print Type', limit: 5, collapse: false
     config.add_facet_field 'bit_depth_facet', label: 'Bit Depth', limit: 5, collapse: false
     config.add_facet_field 'dimensions_facet', label: 'Dimensions', limit: 5, collapse: false
     config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions', limit: 5, collapse: false
-    # Have BL send all facet field names to Solr, which has been the default
-    # previously. Simply remove these lines if you'd rather use Solr request
-    # handler defaults, or have no facets.
+    config.add_facet_field 'collection_facet', label: "Collection", limit: 5, collapse: false
+    # Only for logged in users
+    config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false, if: :user_signed_in?
+    config.add_facet_field 'component_type_facet', label: 'Component Type', limit: 5, collapse: false, if: :user_signed_in?
+    config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false, if: :user_signed_in?
+
 
 
     config.add_facet_fields_to_solr_request!
