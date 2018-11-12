@@ -1,6 +1,7 @@
 class Work < ApplicationRecord
   has_many :components, dependent: :destroy
   has_many :artists, -> { distinct }, through: :components
+  has_many :collections, -> { distinct }, through: :components
 
   after_save :index_record
   after_destroy :delete_solr_record

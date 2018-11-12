@@ -29,26 +29,25 @@ class CollectionDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :works,
-    :id,
     :name_en,
     :name_jp,
+    :works,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :works,
     :id,
     :name_en,
     :name_jp,
+    :description_en,
+    :description_jp,
     :website,
     :viewing_policy_en,
     :viewing_policy_jp,
     :contact_information_en,
     :contact_information_jp,
-    :description_en,
-    :description_jp,
+    :works,
     :created_at,
     :updated_at,
   ].freeze
@@ -57,7 +56,6 @@ class CollectionDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :works,
     :name_en,
     :name_jp,
     :website,
@@ -67,6 +65,7 @@ class CollectionDashboard < Administrate::BaseDashboard
     :contact_information_jp,
     :description_en,
     :description_jp,
+    :works,
   ].freeze
 
   # Overwrite this method to customize how collections are displayed

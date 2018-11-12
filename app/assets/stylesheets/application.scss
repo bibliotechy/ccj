@@ -73,3 +73,13 @@ body, html {
 .index-artist-name {
   font-size: 1.5em;
 }
+
+.index-context {
+  font-size: .85em;
+
+  .artist-name {
+    font-size: 1em;
+    font-weight: bolder;
+    margin-bottom: 1.1em;
+  }
+}

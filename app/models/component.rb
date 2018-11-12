@@ -1,11 +1,12 @@
 class Component < ApplicationRecord
   belongs_to :work
+  belongs_to :collection
   has_and_belongs_to_many :artists, dependent: :destroy
 
   after_save :index_work_record
 
   def index_work_record
-    Work.find(work_id).index_record
+    Work.find(work_id).index_record if work_id
   end
 
   def to_solr
@@ -18,8 +19,8 @@ class Component < ApplicationRecord
       color_t: color,
       sound_t: sound,
       run_time_t: run_time,
-      collection_t: collection.to_s,
-      collection_facet: collection.to_s,
+      collection_t: collection.name_en,
+      collection_facet: collection.name_en,
       media_type_t: media_type,
       media_type_facet: media_type,
       media_format_t: media_format,

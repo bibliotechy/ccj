@@ -6,6 +6,8 @@ class CreateArtists < ActiveRecord::Migration[5.1]
       t.string :viaf_identifier
       t.string :local_identifier
       t.text :description_en
+      t.text :description_jp
+      t.text :external_link
 
       t.timestamps
     end

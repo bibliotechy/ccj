@@ -8,7 +8,6 @@ class CreateComponents < ActiveRecord::Migration[5.1]
       t.string :bit_rate
       t.string :brand
       t.string :cataloger
-      t.string :collection
       t.string :color
       t.string :component_type
       t.string :contributors_en

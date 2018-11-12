@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2018_11_08_024101) do
     t.string "viaf_identifier"
     t.string "local_identifier"
     t.text "description_en"
+    t.text "description_jp"
+    t.text "external_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -82,7 +84,6 @@ ActiveRecord::Schema.define(version: 2018_11_08_024101) do
     t.string "bit_rate"
     t.string "brand"
     t.string "cataloger"
-    t.string "collection"
     t.string "color"
     t.string "component_type"
     t.string "contributors_en"
@@ -173,8 +174,6 @@ ActiveRecord::Schema.define(version: 2018_11_08_024101) do
     t.string "local_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "collection_id"
-    t.index ["collection_id"], name: "index_works_on_collection_id"
   end
 
 end

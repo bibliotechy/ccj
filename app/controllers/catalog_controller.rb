@@ -5,10 +5,12 @@ class CatalogController < ApplicationController
   before_action :add_facet_context, only: [:index]
   def add_facet_context
     if params['f']
-      artist_name = params.dig('f','artists_facet')
-      if artist_name && artist_name.size == 1
-        artist_name_en = artist_name.first.split("/").first.strip
-        @context = Artist.find_by(name_en: artist_name_en)
+      if params['f']['artists_facet']&.size == 1
+        artist_name_en = params['f']['artists_facet']&.first&.split("/")&.first&.strip
+        @context = Artist.find_by(name_en: artist_name_en) if artist_name_en
+      elsif params['f']['collection_facet']&.size == 1
+        collection_name_en = params['f']['collection_facet']&.first&.strip
+        @context = Collection.find_by(name_en: collection_name_en)
       end
     end
   end
@@ -18,7 +20,6 @@ class CatalogController < ApplicationController
 
   def show
     pid = params[:id]
-    binding
     id = pid.include?("_") ? pid.split("_")[1] : pid
     @work = Work.find(id)
     respond_to do |format|

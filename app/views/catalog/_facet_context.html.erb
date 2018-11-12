@@ -1,14 +1,5 @@
-<div class="context-above-index">
+<div class="index-context row">
   <% if @context %>
-  <div class="col-md-6">
-    <%= @context.name =%>
-    <%= @context.description_en =%>
-    </div>
-    <div>
-    <% if @context.image.attached? %>
-      <%= image_tag @context.image.variant(resize: "150x150") %>
-    <% end %>
-    </div>
-
+    <%= render_context %>
   <% end %>
 </div>

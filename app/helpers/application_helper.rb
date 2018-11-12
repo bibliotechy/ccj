@@ -5,4 +5,8 @@ module ApplicationHelper
       detail.compact.uniq.to_sentence
     end.join(", ")
   end
+
+  def render_context
+    render "#{@context.class.to_s.downcase}_context" rescue nil
+  end
 end

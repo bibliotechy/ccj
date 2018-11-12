@@ -1,0 +1,9 @@
+<div class="col-md-8">
+  <div class="artist-name"><%= @context.name =%></div>
+  <%= @context.description_en =%>
+  <div class="col-md-4">
+  <% if @context.respond_to?(:image) && @context&.image&.attached? %>
+    <%= image_tag @context.image.variant(resize: "215x175") %>
+  <% end %>
+  </div>
+</div>

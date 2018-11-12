@@ -11,14 +11,16 @@ class ArtistDashboard < Administrate::BaseDashboard
     components: Field::HasMany,
     works: Field::HasMany,
     id: Field::Number,
-    name_en: Field::Text,
-    name_jp: Field::Text,
+    name_en: Field::String,
+    name_jp: Field::String,
     viaf_identifier: Field::String,
     local_identifier: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     image: Field::ActiveStorage,
-    description_en: Field::String,
+    description_en: Field::Text,
+    description_jp: Field::Text,
+    external_link: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -39,10 +41,11 @@ class ArtistDashboard < Administrate::BaseDashboard
     :id,
     :name_en,
     :name_jp,
+    :description_en,
+    :description_jp,
+    :image,
     :viaf_identifier,
     :local_identifier,
-    :description_en,
-    :image,
     :created_at,
     :updated_at,
   ].freeze
@@ -55,10 +58,12 @@ class ArtistDashboard < Administrate::BaseDashboard
     :components,
     :name_en,
     :name_jp,
+    :description_en,
+    :description_jp,
+    :external_link,
+    :image,
     :viaf_identifier,
     :local_identifier,
-    :description_en,
-    :image
   ].freeze
 
   # Overwrite this method to customize how artists are displayed
