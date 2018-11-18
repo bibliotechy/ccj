@@ -10,7 +10,12 @@ class Upload < ApplicationRecord
 
       # Clean line breaks not preceded by a carriage return
       cleaned = f.read.force_encoding('UTF-8').gsub(/(?<!\r)\n/,"")
-      CSV.parse(cleaned, headers: true).each_with_index do |row, index|
+      CSV.parse(cleaned,
+        headers: true,
+        converters: ->(v) {v ? v.strip : nil},
+        header_converters: -> (h) {h.strip}
+      )
+      .each_with_index do |row, index|
         unless row.fetch("ID", nil)
           puts "Row #{index} did not have an ID, and was not ingested"
           next
@@ -87,7 +92,7 @@ class Upload < ApplicationRecord
       c.provenance = row['Provenance']
       c.viewing_restrictions = row['Viewing Restrictions']
       c.terms_governing_use = row['Terms of Governing Use']
-      c.housing_annotations = row['Housing Annotations ']
+      c.housing_annotations = row['Housing Annotations']
       c.item_annotations = row['Item Annotations']
       c.condition_notes = row['Condition Notes']
       c.notes = row['Notes']
