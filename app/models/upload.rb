@@ -7,7 +7,10 @@ class Upload < ApplicationRecord
     upload_file_path ||= file.current_path
     record_count = 0
     open(upload_file_path, "rb") do |f|
-      CSV.foreach(f, headers: true).each_with_index do |row, index|
+
+      # Clean line breaks not preceded by a carriage return
+      cleaned = f.read.force_encoding('UTF-8').gsub(/(?<!\r)\n/,"")
+      CSV.parse(cleaned, headers: true).each_with_index do |row, index|
         unless row.fetch("ID", nil)
           puts "Row #{index} did not have an ID, and was not ingested"
           next
@@ -32,7 +35,7 @@ class Upload < ApplicationRecord
 
   def component_from_row(row)
 
-    Component.find_or_create_by(local_identifer: row["Component ID"]) do |c|
+    Component.find_or_create_by!(local_identifer: row["Component ID"]) do |c|
       # Assumes work already exists. Very assy of me
       c.work = Work.find_or_create_by(local_id: row["ID"]) do |work|
         work.title_en = row["Title (EN)"]
@@ -46,9 +49,8 @@ class Upload < ApplicationRecord
         c.artists << artist unless c.artists.include? artist
       end
 
-      if has_collection?(row)
-        c.collection = add_component_collection(row)
-      end
+      c.collection = add_component_collection(row)
+
 
 
       c.description_en = row['Description (EN)']
@@ -95,7 +97,7 @@ class Upload < ApplicationRecord
       # deprecated, but here for backwards compatability
       c.film_process_type = row['Film Print Type']
 
-    end
+    end.save!
   end
 
   def add_component_artist(row)
@@ -105,7 +107,7 @@ class Upload < ApplicationRecord
   end
 
   def add_component_collection(row)
-    Collection.find_or_create_by(name_en: row["Collection"])
+    Collection.find_or_create_by(name_en: (row["Collection"]|| "Unknown Collection"))
   end
 
   def has_artist_name?(row)
