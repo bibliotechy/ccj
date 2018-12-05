@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 <h2><%= @artist.name %></h2>
 
+<% if @artist&.image&.attached? %>
 <%= image_tag @artist.image.variant(resize: "200x200") %>
+<% end %>
 <p>
   <strong>Works </strong>
   <ul class="list-unstyled">
