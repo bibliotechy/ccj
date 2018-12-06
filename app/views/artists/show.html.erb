@@ -12,17 +12,3 @@
       <% end.join.html_safe %>
   </ul>
 </p>
-
-<% if  @artist.viaf_identifier %>
-<p>
-  <strong>Viaf identifier:</strong>
-  <%= @artist.viaf_identifier %>
-</p>
-<% end %>
-
-<% if  @artist.local_identifier %>
-<p>
-  <strong>Local identifier:</strong>
-  <%= @artist.local_identifier %>
-</p>
-<% end %>
