@@ -562,7 +562,7 @@
    <copyField source="subject_topic_facet" dest="subject_topic_unstem_search"/>
 
    <!-- sort fields -->
-   <copyField source="pub_date" dest="pub_date_sort"/>
+   <!-- <copyField source="pub_date" dest="pub_date_sort"/> -->
 
 
 

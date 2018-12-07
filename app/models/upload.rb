@@ -62,7 +62,7 @@ class Upload < ApplicationRecord
       c.description_jp = row['Description (JP)']
       c.contributors_en = row['Contributors (EN)']
       c.contributors_jp = row['Contributors (JP)']
-      c.creation_date = row['Creation Date'].to_i
+      c.creation_date = row['Creation Date']
       c.color = row['Color']
       c.sound = row['Sound']
       c.run_time = row['Run time (HH:MM:SS)']
