@@ -8,7 +8,9 @@ class SolrDocument
   end
 
   def combined_title
-    "#{self['title_en_t'].join(' ')} / #{self['title_jp_t'].join(' ')}"
+    ["#{self.fetch('title_en_t',[]).join(' ')}", "#{self.fetch('title_jp_t',[]).join(' ')}"].
+      reject(&:empty?).
+      join(" / ")
   end
 
   # self.unique_key = 'id'
