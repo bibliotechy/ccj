@@ -56,7 +56,7 @@ gem 'administrate'
 gem 'administrate-field-active_storage'
 gem "mini_magick"
 gem 'image_processing', '~> 1.2'
-gem 'blacklight'
+gem 'blacklight', '~> 6.0'
 
 group :development, :test do
   gem 'solr_wrapper', '>= 2.0'
