@@ -66,20 +66,43 @@ body, html {
   font-size: .8em;
 }
 
-#documents .document .document-title-heading {
-  font-size: 2em;
-}
-
-.index-artist-name {
-  font-size: 1.5em;
-}
 
 .index-context {
   font-size: .85em;
+  line-height: 1.5;
 
   .artist-name {
     font-size: 1em;
     font-weight: bolder;
     margin-bottom: 1.1em;
   }
+}
+
+
+
+
+.desc p.collapse[aria-expanded="false"], .desc-jp p.collapse[aria-expanded="false"] {
+    display: block !important;
+    height: 70px !important;
+    overflow: hidden;
+}
+
+// .desc p.collapsing[aria-expanded="false"] {
+//     height: 40px !important;
+// }
+
+.desc a.collapsed:after  {
+    content: '+ Show More';
+}
+
+.desc a:not(.collapsed):after {
+    content: '- Show Less';
+}
+
+.desc-jp a.collapsed:after  {
+    content: '+ 続きを読む';
+}
+
+.desc-jp a:not(.collapsed):after {
+    content: '- もっと読む';
 }

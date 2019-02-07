@@ -1,6 +1,19 @@
 <div class="col-md-8">
   <div class="artist-name"><%= @context.name =%></div>
-  <%= @context.description_en =%>
+  <div class="row">
+    <div class="col-md-6 desc container" >
+      <p class="collapse" id="collapse-en" aria-expanded="false">
+        <%= @context.description_en =%>
+      </p>
+      <a role="button" class="collapsed" data-toggle="collapse" href="#collapse-en" aria-expanded="false" aria-controls="collapse-en"></a>
+    </div>
+    <div class="col-md-6 desc-jp container" >
+      <p class="collapse" id="collapse-jp" aria-expanded="false">
+        <%= @context.description_jp =%>
+      </p>
+      <a role="button" class="collapsed" data-toggle="collapse" href="#collapse-jp" aria-expanded="false" aria-controls="collapse-jp"></a>
+    </div>
+  </div>
 </div>
 <div class="col-md-4">
 <% if @context.respond_to?(:image) && @context&.image&.attached? %>
