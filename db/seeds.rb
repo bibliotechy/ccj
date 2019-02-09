@@ -67,6 +67,7 @@ Masanori Oe (b. 1942) is a filmmaker, writer and translator. Moving to New York 
 
 artists_details.each do |ad|
   artist = Artist.where("lower(name_en) = lower(?)", "#{ad[:name_en]}".strip).first_or_create
+  artist.name_en ||= ad[:name_en]
   artist.name_jp ||= ad[:name_jp]
   artist.description_en ||= ad[:description_en]
   artist.description_jp ||= ad[:description_jp]
