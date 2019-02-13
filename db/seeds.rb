@@ -54,12 +54,23 @@ Masanori Oe (b. 1942) is a filmmaker, writer and translator. Moving to New York 
   },
   {
     name_en: "IIMURA Takahiko",
-    name_jp: "",
+    name_jp: "飯村隆彦",
     description_en: %Q[
     Takahiko Iimura (b. 1937, Tokyo) is an artist and filmmaker who has lived between Tokyo and New York throughout his artistic career. Together with Nobuhiko Obayashi and Yoichi Takabayashi, Iimura was one of the first to organise screenings of 8mm films outside of amateur home movie circles in the early 1960s. Presenting screenings at gallery spaces, including the first in a series of Naiqua Cinematheque screenings held at Naiqua Gallery, Tokyo, in 1963, Iimura’s peers mostly consisted of artists rather than filmmakers, which led to several collaborations: Yoko Ono created the sound design of Ai (Love) (1962-63); Natsuyuki Nakanishi co-directed On Eye Rape (1963), an early Japanese found footage film; and Sho Kazakura performed happenings for the camera in Dance Party in the Kingdom of Lilliput (1964). These collaborations influenced the way Iimura presented his films, which led to his early experiments in expanded cinema and, eventually, film and video installations. After winning a group prize at the experimental film festival EXPRMNTL in Knokke-le-Zoute, Belgium, in 1963, Iimura co-founded the Film Independents with the other recipients. Encouraged by a positive review of his film Ai (Love) by Jonas Mekas, Iimura relocated to New York in 1966 where he initiated further collaborations, such as with Alvin Lucier. Returning to Tokyo in 1969, Iimura began immersing himself in video art and, ever since, has been considered a pioneer of expanded cinema, video art and film installation in Japan. His works have been presented at Centre Pompidou, Museum of Modern Art, Tokyo Photographic Art Museum and Eye Filmmuseum.
     ],
     description_jp: %Q[
 飯村隆彦（1937年生、東京出身）は、東京とニューヨークを拠点に活動するアーティスト、映像作家。1963年、日本のネオ・ダダの前衛画廊であった、内科画廊での最初の個展上映を「内科シネマテーク」として始め、また、画家、中西夏之や音楽家、刀根康尚らのアーテイストと「フィルム・アンデパンダン」を組織、紀伊国屋ホールで上映する。 アーティストとの交流が多かったことから、小野洋子による 「Ai (Love)」（1962-63）の音楽、日本における初期ファウンド・フッテージフィルムにパンチを連続して空けたパフォーマンス「視姦について」（1963）を中西夏之と共同制作。さらに「リリパッド王国舞踏会」（1964年）では主演の風倉匠によるパフォーマンスを演出する。これらのコラボレーションは、飯村の作品の上映方法を拡大して、のちの拡張映画の前例となり、その後の映画やビデオ・インスタレーションへと発展する。 1964年、ベルギーのクノック・ル・ズーの実験映画祭「EXPRMNTL」では「オナン」が特別賞を受賞。1966年には、「Ai」（Love）がジョナス・メカスによりビレッジ・ボイス紙に高く評価され、さらにハーバード大學の国際セミナーの招待により、渡米、ニューヨークに移住する。音楽のアルヴァン・ルシエとニューヨークのDomなどで「シェルター9999」をライブ公演する。1969年からビデオアートを始め、「タイム３部作」（1973）や「オブザーバー/オブザーブド」（1976）「ビデオの記号学」（1975-1976）などビデオ固有のテーマを制作する。ベルリンの以来、拡張映画、ビデオアート、ビデオインスタレーションにおける先駆的アーティストとしてパのポンピドゥセンター、ニューヨーク近代美術館（MoMA）、東京都写真美術館などにて作品を展示, 上映し、収蔵作品ともなっている。
+    ]
+
+  },
+  {
+    name_en: "Keiichi Tanaami",
+    name_jp: "田名網敬",
+    description_en: %Q[
+    Tanaami Keiichi (b. 1936, Tokyo) is an artist, graphic designer and animation filmmaker. While still a student at the Mushashino Art University, his career took off when he received a special selection award at the 1958 Japan Advertising Art Exhibition. He participated in the Animation Festival at Sogetsu Art Center in 1965 and 1966, after which his animation works frequently screened at international film festivals such as International Short Film Festival Oberhausen, New York Film Festival and Ottawa International Animation Festival. Tanaami became known as a leading figure of pop art and psychedelic art in Japan as his print-based, sculptural works and films grew increasingly popular in the 1960-70s. Designing record covers, posters, and taking on the role of Art Director for the Japanese edition of PLAYBOY in 1975, he often bridged commercial work and art practice ––it was just as likely to see his work on a magazine cover as an art exhibition. Now represented by NANZUKA, his career continues to be as prolific as ever with works exhibited recently at Walker Art Center, Museum of Modern Art (New York), Hamburger Bahnhof, and Tate Modern.
+    ],
+    description_jp: %Q[
+田名網敬一（1936年生、東京出身）アーティスト、グラフィックデザイナー、アニメーション映像作家。武蔵野美術大学の学生当時、1958年日宣美展にて特別選考賞を受賞し作家活動を開始。 1965年、1966年、草月アートセンターでのアニメーションフェスティバルに参加。その後、オーバーハウゼン国際短編映画、ニューヨーク映画祭、オタワ国際アニメーションフェスティバルなどの国際映画祭にて作品が頻繁に上映されるようになる。1960-70年代、プリントや彫刻作品、映画が人気を博すにつれて、日本におけるポップアート、サイケデリックアートの先駆的アーティストとして知られるようになる。レコードアルバムのカバーやポスターのデザイン、1975年には日本版『PLAYBOY』のアートディレクターに就任する。作品はアート作品の展示と同様に、雑誌のカバーデザインとしても広まり、アートと商業作品の架橋となる。現在NANZUKAに所属、作家活動を続けるなか多くの作品を生み出している。近年、ウォーカー・アート・センター、ニューヨーク近代美術館（MoMA)、森美術館、テート・モダンで展覧会が開催された。
     ]
 
   },
