@@ -13,10 +13,10 @@ class Upload < ApplicationRecord
       CSV.parse(cleaned,
         headers: true,
         converters: ->(v) {v ? v.strip : nil},
-        header_converters: -> (h) {h.strip}
+	header_converters: -> (h) {h.strip.downcase}
       )
       .each_with_index do |row, index|
-        unless row.fetch("ID", nil)
+        unless row.fetch("id", nil)
           puts "Row #{index} did not have an ID, and was not ingested"
           next
         end
@@ -40,13 +40,13 @@ class Upload < ApplicationRecord
 
   def component_from_row(row)
 
-    Component.find_or_create_by!(local_identifer: row["Component ID"]) do |c|
+    Component.find_or_create_by!(local_identifer: row["component id"]) do |c|
       # Assumes work already exists. Very assy of me
-      c.work = Work.find_or_create_by(local_id: row["ID"]) do |work|
-        work.title_en = row["Title (EN)"]
-        work.title_jp = row["Title (JP)"]
-        work.description_en = row["Description (EN)"]
-        work.description_jp = row["Description (JP)"]
+      c.work = Work.find_or_create_by(local_id: row["id"]) do |work|
+        work.title_en = row["title (en)"]
+        work.title_jp = row["title (jp)"]
+        work.description_en = row["description (en)"]
+        work.description_jp = row["description (jp)"]
       end
 
       if has_artist_name?(row)
@@ -58,77 +58,77 @@ class Upload < ApplicationRecord
 
 
 
-      c.description_en = row['Description (EN)']
-      c.description_jp = row['Description (JP)']
-      c.contributors_en = row['Contributors (EN)']
-      c.contributors_jp = row['Contributors (JP)']
-      c.creation_date = row['Creation Date']
-      c.color = row['Color']
-      c.sound = row['Sound']
-      c.run_time = row['Run time (HH:MM:SS)']
-      c.media_type = row['Media Type']
-      c.media_format = row['Media Format']
-      c.component_type = row['Component Type']
-      c.relation = row['Relation']
-      c.film_process_type = row['Film Process Type']
-      c.fps = row['FPS']
-      c.film_wind = row['Film Wind']
-      c.brand = row['Brand']
-      c.audio_speed = row['Audio Speed']
-      c.audio_reel_size = row['Audio Reel Size']
-      c.audio_reel_capacity = row['Audio Reel Capacity']
-      c.video_stock_length = row['Video Stock Length']
-      c.video_standard = row['Video Standard']
-      c.file_name = row['File Name']
-      c.codecs = (row['Codecs'] || row['Codec'])
-      c.file_size_gb = row['File Size (GB)']
-      c.duration = row['Duration']
-      c.bit_rate = row['Bit Rate']
-      c.dimensions = row['Dimensions']
-      c.display_aspect_ratio = row['Display Aspect Ratio']
-      c.bit_depth = row['Bit Depth']
-      c.scan_type = row['Scan Type']
-      c.encoded_date = row['Encoded Date']
-      c.provenance = row['Provenance']
-      c.viewing_restrictions = row['Viewing Restrictions']
-      c.terms_governing_use = row['Terms of Governing Use']
-      c.housing_annotations = row['Housing Annotations']
-      c.item_annotations = row['Item Annotations']
-      c.condition_notes = row['Condition Notes']
-      c.notes = row['Notes']
-      c.date_of_entry = row['Date of Entry (MM-DD-YYYY)']
-      c.cataloger = row['Cataloger']
+      c.description_en = row['description (en)']
+      c.description_jp = row['description (jp)']
+      c.contributors_en = row['contributors (en)']
+      c.contributors_jp = row['contributors (jp)']
+      c.creation_date = row['creation date']
+      c.color = row['color']
+      c.sound = row['sound']
+      c.run_time = row['run time (hh:mm:ss)']
+      c.media_type = row['media type']
+      c.media_format = row['media format']
+      c.component_type = row['component type']
+      c.relation = row['relation']
+      c.film_process_type = row['film process type']
+      c.fps = row['fps']
+      c.film_wind = row['film wind']
+      c.brand = row['brand']
+      c.audio_speed = row['audio speed']
+      c.audio_reel_size = row['audio reel size']
+      c.audio_reel_capacity = row['audio reel capacity']
+      c.video_stock_length = row['video stock length']
+      c.video_standard = row['video standard']
+      c.file_name = row['file name']
+      c.codecs = (row['codecs'] || row['codec'])
+      c.file_size_gb = row['file size (gb)']
+      c.duration = row['duration']
+      c.bit_rate = row['bit rate']
+      c.dimensions = row['dimensions']
+      c.display_aspect_ratio = row['display aspect ratio']
+      c.bit_depth = row['bit depth']
+      c.scan_type = row['scan type']
+      c.encoded_date = row['encoded date']
+      c.provenance = row['provenance']
+      c.viewing_restrictions = row['viewing restrictions']
+      c.terms_governing_use = row['terms of governing use']
+      c.housing_annotations = row['housing annotations']
+      c.item_annotations = row['item annotations']
+      c.condition_notes = row['condition notes']
+      c.notes = row['notes']
+      c.date_of_entry = row['date of entry (mm-dd-yyyy)']
+      c.cataloger = row['cataloger']
 
       # deprecated, but here for backwards compatability
-      c.film_process_type = row['Film Print Type']
+      c.film_process_type = row['film print type']
 
     end.save!
   end
 
   def add_component_artist(row)
-    Artist.find_or_create_by(name_en: row["Artist name (EN)"]) do |a|
-      a.name_jp = row["Artist name (JP)"]
+    Artist.find_or_create_by(name_jp: row["artist name (jp)"]) do |a|
+      a.name_en = row["artist name (en)"]
     end
   end
 
   def add_component_collection(row)
-    Collection.find_or_create_by(name_en: (row["Collection"]|| "Unknown Collection"))
+    Collection.find_or_create_by(name_en: (row["collection"]|| "Unknown Collection"))
   end
 
   def has_artist_name?(row)
-    !row["Artist name (JP)"].nil? or !row["Artist name (EN)"].nil?
+    !row["artist name (jp)"].nil? or !row["artist name (en)"].nil?
   end
 
   def has_collection?(row)
-    !row["Collection"].nil?
+    !row["collection"].nil?
   end
 
   def work_from_row(row)
-    Work.find_or_create_by(local_id: row["ID"]) do |work|
-      work.title_en = row["Title (EN)"]
-      work.title_jp = row["Title (JP)"]
-      work.description_en = row["Description (EN)"]
-      work.description_jp = row["Description (JP)"]
+    Work.find_or_create_by(local_id: row["id"]) do |work|
+      work.title_en = row["title (en)"]
+      work.title_jp = row["title (jp)"]
+      work.description_en = row["description (en)"]
+      work.description_jp = row["description (jp)"]
     end
   end
 
@@ -137,6 +137,6 @@ class Upload < ApplicationRecord
   end
 
   def is_a_work?(row)
-    (row["Component ID"].nil?) || (row["Component ID"] == "(Work Record)")
+    (row["component id"].nil?) || (row["domponent id"] == "(Work Record)")
   end
 end
