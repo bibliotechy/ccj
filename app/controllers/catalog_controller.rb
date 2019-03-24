@@ -78,11 +78,11 @@ class CatalogController < ApplicationController
     config.add_facet_field 'decades_facet', label: "Decade", collapse: false
     config.add_facet_field 'contributors_facet', label: 'Contributors', limit: 5, collapse: false
     config.add_facet_field 'film_print_type_facet', label: 'Film Print Type', limit: 5, collapse: false
-    config.add_facet_field 'bit_depth_facet', label: 'Bit Depth', limit: 5, collapse: false
-    config.add_facet_field 'dimensions_facet', label: 'Dimensions', limit: 5, collapse: false
     config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions', limit: 5, collapse: false
     config.add_facet_field 'collection_facet', label: "Collection", limit: 5, collapse: false
     # Only for logged in users
+    config.add_facet_field 'bit_depth_facet', label: 'Bit Depth', limit: 5, collapse: false, if: :user_signed_in?
+    config.add_facet_field 'dimensions_facet', label: 'Dimensions', limit: 5, collapse: false, if: :user_signed_in?
     config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false, if: :user_signed_in?
     config.add_facet_field 'component_type_facet', label: 'Component Type', limit: 5, collapse: false, if: :user_signed_in?
     config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false, if: :user_signed_in?
