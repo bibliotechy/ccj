@@ -98,6 +98,7 @@ class Upload < ApplicationRecord
       c.notes = row['notes']
       c.date_of_entry = row['date of entry (mm-dd-yyyy)']
       c.cataloger = row['cataloger']
+      c.recording_date = row['recording date']
 
       # deprecated, but here for backwards compatability
       c.film_process_type = row['film print type']
