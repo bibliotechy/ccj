@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_133729) do
+ActiveRecord::Schema.define(version: 2019_04_13_121024) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -175,6 +175,14 @@ ActiveRecord::Schema.define(version: 2019_03_24_133729) do
     t.string "local_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video_url"
+    t.string "creation_date"
+    t.string "color"
+    t.string "sound"
+    t.string "run_time"
+    t.string "format"
+    t.integer "artist_id"
+    t.index ["artist_id"], name: "index_works_on_artist_id"
   end
 
 end

@@ -12,5 +12,5 @@ task :clean => :environment do
   Artist.all.each(&:destroy)
   Component.all.each(&:destroy)
   Work.all.each(&:destroy)
-  SolrDocument.repository.search["response"]["docs"].each {|doc| SolrService.delete(doc['id'])}
+  SolrDocument.repository.search(limit: 100)["response"]["docs"].each {|doc| SolrService.delete(doc['id'])}
 end

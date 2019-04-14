@@ -1,0 +1,38 @@
+Work ID,Component ID,Previous ID,Artist Name (EN),Artist Name (JP),Component Title (EN),Component Title (JP),Component Description (EN),Component Description (JP),Contributors (EN),Contributors (JP),Collection,Recording Date,Color,Sound,Run time (HH:MM:SS),Media Type,Media Format,Component Type,Relation,Film Process,Film Element Type,Film Wind,FPS,Audio Speed,Brand,Reel Size,Audio Reel Capacity,Video Stock Length,Video Standard,File Name,Codec,Codec ID,File Size (GB),Duration,Bit Rate,Dimensions,Display Aspect Ratio,Bit Depth,Scan Type,Encoded Date,Provenance,Viewing Restrictions,Terms Governing Use,Housing Annotations,Item Annotations,Condition Notes (EN),Condition Notes (JP),Notes,Date of Entry (YYYY-MM-DD),Cataloger
+MI_001,MR_001,40100181（収蔵年2014）;Test40100181_1,MIYAI Rikuro,宮井陸郎,Party,パーティ,,作品,,,TOP Museum,1970,BW,Silent,00:42:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,運送から,Positive / ポジ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,著作権は宮井陸郎が保持。,,,,,,,
+MI_001,MR_002,40100181（収蔵年2014）;Test40100181_2,MIYAI Rikuro,宮井陸郎,Party,パーティ,,作品デジタル,,,TOP Museum,1970,BW,Silent,00:42:00,Video,Digital File,Unknown / 不明,MR_001から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,著作権は宮井陸郎が保持。,LTO07,,,,,,
+AZ_001,AS_001,40100212（収蔵年2016）;Test40100212_1,AZUCHI GULLIVER Shuzo ,シュウゾウ・アヅチ・ガリバー,Cinematic Illumination,シネマティック・イルミネーション,,作品,,,TOP Museum,1968–69,BW,Silent,variable / 可変,Slide,35mm,Preservation Master / 保存用マスター,運送から,Positive / ポジ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,著作権はシュウゾウ・アヅチ・ガリバーが保持。,,,,,展示時には音楽あり。,,
+AZ_001,AS_002,40100212（収蔵年2016）;Test40100212_2,AZUCHI GULLIVER Shuzo ,シュウゾウ・アヅチ・ガリバー,Cinematic Illumination,シネマティック・イルミネーション,,作品デジタル,,,TOP Museum,1968–69,BW,Silent,variable / 可変,Video,Digital File,Digital Preservation Master / デジタル保存マスター,_AS_001から作成,,,,,,,,,,,,,,,,,,,,,,,,著作権はシュウゾウ・アヅチ・ガリバーが保持。,,,,,,,
+JO_001,JM_001,40100218（収蔵年2016）;Test40100218_1,JONOUCHI Motoharu,城之内元晴,Shinjuku Station,新宿ステーション,,作品,,,TOP Museum,1974,BW,Sound,00:15:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,運送から,Positive / ポジ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,,,,,,
+JO_001,JM_002,40100218（収蔵年2016）;Test40100218_2,JONOUCHI Motoharu,城之内元晴,Shinjuku Station,新宿ステーション,,作品,,,TOP Museum,1974,BW,Sound,00:15:00,Video,Digital File,Unknown / 不明,JM_001から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,,,
+OE_001,OM_001,Test01; Test01_1_1,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル１,,,TOP Museum,1966,BW,Silent,00:02:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,OM_002から作成,Positive / ポジ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+OE_001,OM_002,Test01l Test01_1_2,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル１インターネガ,,,TOP Museum,1966,BW,Silent,00:02:00,Film,16mm,Preservation Master / 保存用マスター,作家保持のオリジナルから,Internegative / インターネガ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+OE_001,OM_003,Test01; Test01_1_3,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル１デジタル,,,TOP Museum,1966,BW,Silent,00:02:00,Video,Digital File,Unknown / 不明,OM_001から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+OE_001,OM_004,Test01; Test01_2_1,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル２,,,TOP Museum,1966,BW,Silent,00:02:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,OM_005から作成,Positive / ポジ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+OE_001,OM_005,Test01; Test01_2_2,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル２デジタル,,,TOP Museum,1966,BW,Silent,00:02:00,Film,16mm,Preservation Master / 保存用マスター,作家保持のオリジナルから,Internegative / インターネガ,,,Unknown / 不明,,,,,,,,,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+OE_001,OM_006,Test01; Test01_2_3,OE Masanori,おおえまさのり,Loop Siki No.1 / No.2 / No.3,ループ式　No.1 / No.2 / No.3,,作品チャンネル１デジタル,,,TOP Museum,1966,BW,Silent,00:02:00,Video,Digital File,Unknown / 不明,OM_004から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,"ニュープリント制作、デジタル化
+Loop siki に関しては、
+4種のポジを交互に16ミリ映写機で上映したようです。
+赤1 白1 青1 波形1",,
+TA_008,TI_259,Test02; Test02_1,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),,作品 (Test03と展覧する場合はチャンネル１）,,,TOP Museum,1964,BW,Sound,00:12:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,TI_261から作成,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+TA_008,TI_260,Test02; Test02_2,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),,作品デジタル,,,TOP Museum,1964,BW,Sound,00:12:00,Video,Digital File,Unknown / 不明,TI_259から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+TA_008,TI_261,Test02; Test02_3,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.1),リリパット王国舞踏会 (No.1),,トランスファー用,,,TOP Museum,1964,BW,Sound,00:12:00,Film,35mm,Other / 他,作家保持のオリジナル16mmネガから,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,,,,,,,,16ミリネガから35㎜マスターポジを制作し、16ミリプリント作成、デジタル化,,
+TA_008.1,TI_262,Test03; Test03_1,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),,作品チャンネル２(Test02と展覧する場合のみ使用）,,,TOP Museum,1966,BW,Silent,00:12:00,Film,16mm,Exhibition/Museum Print /展覧・所蔵プリント,TI_264作成,Positive / ポジ,,,,,,,,,,,,,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+TA_008.1,TI_263,Test03; Test03_2,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),,作品デジタル,,,TOP Museum,1966,BW,Silent,00:12:00,Video,Digital File,Unknown / 不明,TI_262から作成,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+TA_008.1,TI_264,Test03; Test03_3,IIMURA Takahiko,飯村隆彦,A Dance Party in the Kingdom of Lilliput (No.2),リリパット王国舞踏会 (No.2),,トランスファー用,,,TOP Museum,1966,BW,Silent,00:12:00,Film,16mm,Other / 他,作家保持のオリジナル16mmポジから,Internegative / インターネガ,,,,,,,,,,,,,,,,,,,,,,,,,,,,16ミリポジからインターネガを制作し、16ミリプリント作成、デジタル化,,
+MA_001,MH_001,Test04; Test04_1,MANABE Hiroshi,真鍋博,Marine Snow,マリーン・スノウ,,作品デジタル,,,TOP Museum,1960,BW,Sound,00:23:00,Video,Digital File,Unknown / 不明,愛媛県美術館より借用した16mmポジから,,,,,,,,,,,,Apple ProRes 422 HQ,,,,,,,,,,,,,,,,,愛媛県美術館より借用しデジタル化のみ,,

@@ -9,4 +9,12 @@ module ApplicationHelper
   def render_context
     render "#{@context.class.to_s.downcase}_context" rescue nil
   end
+
+  def collection_facet_name(context)
+    if context.website.nil?
+      context.website
+    else
+      link_to context.name_en, context.website
+    end
+  end
 end

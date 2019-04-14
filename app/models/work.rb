@@ -1,6 +1,7 @@
 class Work < ApplicationRecord
   has_many :components, dependent: :destroy
-  has_many :artists, -> { distinct }, through: :components
+  belongs_to :artist
+  has_many :component_artists, -> { distinct }, through: :components, source: :artists
   has_many :collections, -> { distinct }, through: :components
 
   after_save :index_record
@@ -8,13 +9,13 @@ class Work < ApplicationRecord
 
 
   def solr_id
-    "work_#{id}"
+    local_id
   end
 
   def to_solr
       # *_texts here is a dynamic field type specified in solrconfig.xml
     {
-      id: solr_id,
+      id: local_id,
       local_id_t: local_id,
       title_t: title,
       title_facet: title,
@@ -22,9 +23,9 @@ class Work < ApplicationRecord
       title_jp_t: title_jp,
       description_en_t: description_en,
       description_jp_t: description_jp,
-      artists_t: artists.uniq.map(&:to_s),
-      artists_en_t: artists.uniq.map(&:name_en),
-      artists_facet: artists.uniq.map(&:to_s),
+      artists_t: artists.map(&:to_s),
+      artists_en_t: artists.map(&:name_en),
+      artists_facet: artists.map(&:to_s),
       decades_facet: decades.uniq
     }.merge(components_solr)
   end
@@ -56,6 +57,15 @@ class Work < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def artists
+    (component_artists.to_a.append(artist)).uniq
+  end
+
+  def video_id
+    # video_url is expected in format https://vimeo.com/288791842
+    video_url.split("/").last
   end
 
   def decades

@@ -9,12 +9,13 @@ class WorkDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     components: Field::HasMany,
-    artists: Field::HasMany,
+    artist: Field::HasOne,
     id: Field::Number,
     title_en: Field::Text,
     title_jp: Field::Text,
     description_en: Field::Text,
     description_jp: Field::Text,
+    video_url: Field::String,
     local_id: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -28,19 +29,21 @@ class WorkDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :title_jp,
     :title_en,
-    :artists,
+    :artist,
+    :components
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :components,
-    :artists,
+    :artist,
     :id,
     :title_en,
     :title_jp,
     :description_en,
     :description_jp,
+    :video_url,
     :local_id,
     :created_at,
     :updated_at,
@@ -54,6 +57,7 @@ class WorkDashboard < Administrate::BaseDashboard
     :title_jp,
     :description_en,
     :description_jp,
+    :video_url,
     :local_id,
   ].freeze
 

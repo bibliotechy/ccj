@@ -1,10 +1,20 @@
-<div class="col-md-8">
-  <% unless @context.name.nil? %>
-  <div class="artist-name">Works held by <%= @context.name =%></div>
-  <div><%= @context.description_en =%></div>
-    <% unless @context.website.nil? %>
-  <div> <%= link_to @context.website %> </div>
-    <% end %>
-  <% end %>
+<div class="col-md-12">
+  <% unless @context.description_en.nil? %>
+  <div class="artist-name">Works held by <%= collection_facet_name(@context) =%></div>
 
+  <div class="row">
+    <div class="col-md-6 desc container" >
+      <p class="collapse" id="collapse-en" aria-expanded="false">
+        <%= @context.description_en =%>
+      </p>
+      <a role="button" class="collapsed" data-toggle="collapse" href="#collapse-en" aria-expanded="false" aria-controls="collapse-en"></a>
+    </div>
+    <div class="col-md-6 desc-jp container" >
+      <p class="collapse" id="collapse-jp" aria-expanded="false">
+        <%= @context.description_jp =%>
+      </p>
+      <a role="button" class="collapsed" data-toggle="collapse" href="#collapse-jp" aria-expanded="false" aria-controls="collapse-jp"></a>
+    </div>
+  </div>
+  <% end %>
 </div>

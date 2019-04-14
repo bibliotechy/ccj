@@ -31,6 +31,7 @@ class ArtistDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :name_en,
     :name_jp,
+    :works,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

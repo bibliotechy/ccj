@@ -38,6 +38,7 @@ en:
     title_en: "English Title"
     title_jp: "Japanese Title"
   component:
+    collection: "Held By"
     media_type: Media Type
     media_format: Media Format
     notes: Notes

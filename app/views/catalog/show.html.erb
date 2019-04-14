@@ -1,7 +1,7 @@
 <div id="content" class="<%= show_content_classes %>">
   <p id="notice"><%= notice %></p>
   <h2>
-    <%= @work.title_en %> / <%= @work.title_jp %>
+    <%= @work.title %>
   </h2>
 
   <ul class="list-unstyled">
@@ -10,7 +10,6 @@
     <% end.join.html_safe %>
   </ul>
 
-  <row class="container">
     <div class="row">
       <div class="col-md-6">
         <h4> Description </h4>
@@ -19,14 +18,21 @@
         <%= @work.description_jp %>
       </div>
       <div class="col-md-6">
+        <% if @work.video_url %>
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/<%= @work.video_id %>?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+              </iframe>
+            </div>
+          <script src="https://player.vimeo.com/api/player.js"></script>
+          <hr />
+        <% end %>
         <h4> Components (<%= @work.components.count %>)</h4>
         <div class="components-on-work-page">
           <ul class="list-unstyled">
           <%= @work.components.group_by(&:collection).collect do |collection, components| %>
-            <h5> Held By: <%= collection %></h5>
               <%= components.each_with_index.collect do |component, index| %>
               <li class="component-list-item">
-                <h6><%= link_to("#{component}", component_path(component)) %></h6>
+                <h5><%= link_to("#{component}", component_path(component)) %></h5>
                 <ul class="list-unstyled">
                 <%= work_page_fields(component).collect do |k,v| %>
                   <li>
@@ -35,8 +41,8 @@
                 <% end.join.html_safe %>
                 </ul>
               </li>
-              <% unless index+1 >= components.count %>
               <hr>
+              <% unless index+1 >= components.count %>
               <% end %>
               <% end.join.html_safe %>
           <% end.join.html_safe %>

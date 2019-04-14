@@ -19,9 +19,7 @@ class CatalogController < ApplicationController
 
 
   def show
-    pid = params[:id]
-    id = pid.include?("_") ? pid.split("_")[1] : pid
-    @work = Work.find(id)
+    @work = Work.find_by(local_id: params[:id])
     respond_to do |format|
      format.html  # {setup_next_and_previous_documents }
      #format.json { render json: { response: { document: @document } } }
