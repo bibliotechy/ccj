@@ -45,7 +45,7 @@
     that avoids logging every request
 -->
 
-<schema name="Blacklight Demo Index" version="1.5">
+<schema name="Temple Library Search" version="1.5">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        Applications should change this to reflect the nature of the search collection.
        version="1.4" is Solr's version number for the schema syntax and semantics.  It should
@@ -167,7 +167,7 @@
      <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
        <analyzer>
          <tokenizer class="solr.StandardTokenizerFactory"/>
-         <filter class="solr.ICUFoldingFilterFactory" />
+         <filter class="solr.ICUFoldingFilterFactory" /> <!-- NFKC, case folding, diacritics removed -->
          <filter class="solr.SnowballPorterFilterFactory" language="English" />
        </analyzer>
      </fieldType>
@@ -181,8 +181,16 @@
 
     <!-- A text field that only splits on whitespace for exact matching of words -->
     <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
-      <analyzer>
+      <analyzer type="index">
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.FlattenGraphFilterFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
 
@@ -193,15 +201,18 @@
 	 also applies synonyms. -->
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="char-filter-mapping.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.FlattenGraphFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_en.txt" />
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="char-filter-mapping.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_en.txt" />
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -213,27 +224,26 @@
          also applies synonyms from synonyms.txt. -->
     <fieldType name="text_en" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="char-filter-mapping.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
+        <filter class="solr.ICUFoldingFilterFactory" /> <!-- NFKC, case folding, diacritics removed -->
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.FlattenGraphFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_en.txt" />
         <filter class="solr.LowerCaseFilterFactory"/>
-	<filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-	<!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-	-->
         <filter class="solr.PorterStemFilterFactory"/>
       </analyzer>
+
       <analyzer type="query">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="char-filter-mapping.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_en.txt" />
         <filter class="solr.LowerCaseFilterFactory"/>
-	<filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-	<!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-	-->
         <filter class="solr.PorterStemFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -308,7 +318,6 @@
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
-        <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
@@ -317,7 +326,6 @@
     <fieldType class="solr.TextField" name="textSuggest" positionIncrementGap="100">
        <analyzer>
           <tokenizer class="solr.KeywordTokenizerFactory"/>
-          <filter class="solr.StandardFilterFactory"/>
           <filter class="solr.LowerCaseFilterFactory"/>
           <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
        </analyzer>
@@ -463,18 +471,12 @@
    <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/>
    <!-- default, catch all search field -->
    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
-
    <!-- these display fields are NOT multi-valued -->
-   <field name="marc_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="title_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="title_vern_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="subtitle_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="subtitle_vern_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="author_display" type="string" indexed="false" stored="true" multiValued="false"/>
-   <field name="author_vern_display" type="string" indexed="false" stored="true" multiValued="false"/>
 
-   <!-- these fields are also used for display, so they must be stored -->
-   <field name="isbn_t" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="marc_display_raw" type="string" indexed="false" stored="true" multiValued="false"/>
+
+   <field name="library_facet" type="string" indexed="true" stored="true" multiValued="true" />
+   <field name="availability_facet" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="language_facet" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="subject_topic_facet" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="subject_era_facet" type="string" indexed="true" stored="true" multiValued="true" />
@@ -485,9 +487,21 @@
    we use 'tint' for faster range-queries. -->
    <field name="pub_date_sort" type="tint" indexed="true" stored="true" multiValued="false"/>
 
-   <!-- format is used for facet, display, and choosing which partial to use for the show view, so it must be stored and indexed -->
-   <field name="format" type="string" indexed="true" stored="true"/>
+   <field name="lc_outer_facet" type="string" indexed="true" stored="true" multiValued="false" />
+   <field name="lc_inner_facet" type="string" indexed="true" stored="true" multiValued="false" />
 
+   <!-- format is used for facet, display, and choosing which partial to use for the show view, so it must be stored and indexed -->
+   <field name="format" type="string" indexed="true" stored="true" multiValued="true"/>
+   <!--field name="library_facet" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="subject" type="string" indexed="true" stored="true" multiValued="true"/ -->
+
+   <field name="record_creation_date" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="record_update_date" type="string" indexed="true" stored="true" multiValued="false"/>
+
+   <field name="bound_with_ids" type="string" indexed="true" stored="true" multiValued="true"/>
+
+   <field name="work_access_point" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="purchase_order" type="boolean" indexed="false" stored="true" multiValued="false" default="false" />
 
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
@@ -497,10 +511,14 @@
         EXAMPLE:  name="*_i" will match any field ending in _i (like myid_i, z_i)
         Longer patterns will be matched first.  if equal size patterns
         both match, the first appearing in the schema will be used.  -->
+
+   <dynamicField name="*_display" type="string" indexed="false" stored="true" multiValued="true" />
+
    <dynamicField name="*_i"  type="int"    indexed="true"  stored="true"/>
    <dynamicField name="*_s"  type="string"  indexed="true"  stored="true"/>
+   <dynamicField name="*_ms"  type="string"  indexed="true"  stored="true" multiValued="true"/>
    <dynamicField name="*_l"  type="long"   indexed="true"  stored="true"/>
-   <dynamicField name="*_t"  type="text"    indexed="true"  stored="true" multiValued="true"/>
+   <dynamicField name="*_t"  type="text_en"    indexed="true"  stored="true" multiValued="true"/>
    <dynamicField name="*_txt" type="text_general"    indexed="true"  stored="true" multiValued="true"/>
    <dynamicField name="*_b"  type="boolean" indexed="true"  stored="true"/>
    <dynamicField name="*_f"  type="float"  indexed="true"  stored="true"/>
@@ -524,7 +542,7 @@
 
    <dynamicField name="random_*" type="random" />
 
-   <dynamicField name="*_display" type="string" indexed="false" stored="true" multiValued="true" />
+
    <dynamicField name="*_facet" type="string" indexed="true" stored="false" multiValued="true" />
    <dynamicField name="*_sort" type="alphaOnlySort" indexed="true" stored="false" multiValued="false" />
    <dynamicField name="*_unstem_search" type="text_general" indexed="true" stored="false" multiValued="true" />
@@ -544,6 +562,9 @@
    -->
  <uniqueKey>id</uniqueKey>
 
+ <!-- field for the QueryParser to use when an explicit fieldname is absent -->
+ <df>text</df>
+
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
@@ -552,22 +573,27 @@
    <!-- unstemmed fields -->
    <copyField source="title_t" dest="title_unstem_search"/>
    <copyField source="subtitle_t" dest="subtitle_unstem_search"/>
+   <copyField source="title_statement_t" dest="title_statement_unstem_search"/>
+   <copyField source="title_uniform_t" dest="title_uniform_unstem_search"/>
    <copyField source="title_addl_t" dest="title_addl_unstem_search"/>
    <copyField source="title_added_entry_t" dest="title_added_entry_unstem_search"/>
    <copyField source="title_series_t" dest="title_series_unstem_search"/>
-   <copyField source="author_t" dest="author_unstem_search"/>
-   <copyField source="author_addl_t" dest="author_addl_unstem_search"/>
+   <copyField source="creator_t" dest="creator_unstem_search"/>
+   <copyField source="subject_display" dest="subject_unstem_search"/>
+   <!-- <copyField source="author_addl_t" dest="author_addl_unstem_search"/> -->
    <copyField source="subject_t" dest="subject_unstem_search"/>
    <copyField source="subject_addl_t" dest="subject_addl_unstem_search"/>
    <copyField source="subject_topic_facet" dest="subject_topic_unstem_search"/>
-
-   <!-- sort fields -->
-   <!-- <copyField source="pub_date" dest="pub_date_sort"/> -->
-
+   <copyField source="note_toc_display" dest="note_toc_unstem_search"/>
+   <copyField source="note_summary_display" dest="note_summary_unstem_search"/>
 
 
-   <copyField source="*_t" dest="text"/>
-   <!-- spellcheck fields -->
+   <!-- sort fields  NOTE: no longer feasible with multiple dates -->
+  <!--  <copyField source="pub_date" dest="pub_date_sort"/>  -->
+
+   <copyField source="*_display" dest="text" />
+
+ <!-- spellcheck fields -->
    <!-- default spell check;  should match fields for default request handler -->
    <!-- it won't work with a copy of a copy field -->
    <copyField source="*_t" dest="spell"/>
@@ -575,16 +601,42 @@
    <!-- title spell check;  should match fields for title request handler -->
    <copyField source="title_t" dest="title_spell"/>
    <copyField source="subtitle_t" dest="title_spell"/>
-   <copyField source="addl_titles_t" dest="title_spell"/>
+   <copyField source="title_uniform_t" dest="title_spell"/>
+   <copyField source="title_addl_t" dest="title_spell"/>
    <copyField source="title_added_entry_t" dest="title_spell"/>
    <copyField source="title_series_t" dest="title_spell"/>
    <!-- author spell check; should match fields for author request handler -->
-   <copyField source="author_t" dest="author_spell"/>
-   <copyField source="author_addl_t" dest="author_spell"/>
+   <copyField source="creator_t" dest="author_spell"/>
    <!-- subject spell check; should match fields for subject request handler -->
    <copyField source="subject_topic_facet" dest="subject_spell"/>
    <copyField source="subject_t" dest="subject_spell"/>
    <copyField source="subject_addl_t" dest="subject_spell"/>
+
+   <!-- search fields for advanced search form-->
+   <copyField source="title_display" dest="title_t"/>
+   <copyField source="title_uniform_display" dest="title_uniform_t"/>
+   <copyField source="title_addl_display" dest="title_addl_t"/>
+   <copyField source="isbn_display" dest="isbn_t"/>
+   <copyField source="issn_display" dest="issn_t"/>
+   <copyField source="call_number_display" dest="call_number_t"/>
+   <copyField source="call_number_alt_display" dest="call_number_t"/>
+   <copyField source="alma_mms_display" dest="alma_mms_t"/>
+   <copyField source="title_series_display" dest="title_series_t"/>
+   <copyField source="note_display" dest="note_t"/>
+   <copyField source="note_with_display" dest="note_with_t"/>
+   <copyField source="note_diss_display" dest="note_diss_t"/>
+   <copyField source="note_biblio_display" dest="note_biblio_t"/>
+   <copyField source="note_toc_display" dest="note_toc_t"/>
+   <copyField source="note_restrictions_display" dest="note_restrictions_t"/>
+   <copyField source="note_references_display" dest="note_references_t"/>
+   <copyField source="note_summary_display" dest="note_summary_t"/>
+   <copyField source="note_cite_display" dest="note_cite_t"/>
+   <copyField source="note_finding_aid_display" dest="note_finding_aid_t"/>
+   <copyField source="note_custodial_display" dest="note_custodial_t"/>
+   <copyField source="note_binding_display" dest="note_binding_t"/>
+   <copyField source="note_related_display" dest="note_related_t"/>
+   <copyField source="note_accruals_display" dest="note_accruals_t"/>
+   <copyField source="note_local_display" dest="note_local_t"/>
 
    <!-- OpenSearch query field should match request handler search fields -->
    <copyField source="title_t" dest="opensearch_display"/>
@@ -592,11 +644,12 @@
    <copyField source="addl_titles_t" dest="opensearch_display"/>
    <copyField source="title_added_entry_t" dest="opensearch_display"/>
    <copyField source="title_series_t" dest="opensearch_display"/>
-   <copyField source="author_t" dest="opensearch_display"/>
-   <copyField source="author_addl_t" dest="opensearch_display"/>
+   <copyField source="creator_t" dest="opensearch_display"/>
+   <!-- <copyField source="author_addl_t" dest="opensearch_display"/> -->
    <copyField source="subject_topic_facet" dest="opensearch_display"/>
    <copyField source="subject_t" dest="opensearch_display"/>
    <copyField source="subject_addl_t" dest="opensearch_display"/>
+
 
    <!-- for suggestions -->
    <copyField source="*_t" dest="suggest"/>
