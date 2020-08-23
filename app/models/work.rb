@@ -13,7 +13,7 @@ class Work < ApplicationRecord
   end
 
   def to_solr
-      # *_texts here is a dynamic field type specified in solrconfig.xml
+      # *_t here is a dynamic field type specified in solrconfig.xml
     {
       id: local_id,
       local_id_t: local_id,
@@ -23,6 +23,7 @@ class Work < ApplicationRecord
       title_jp_t: title_jp,
       description_en_t: description_en,
       description_jp_t: description_jp,
+      pub_date: creation_date,
       artists_t: artists.map(&:to_s),
       artists_en_t: artists.map(&:name_en),
       artists_facet: artists.map(&:to_s),
@@ -44,11 +45,11 @@ class Work < ApplicationRecord
   end
 
   def index_record
-    SolrService.add(self.to_solr)
+    ::SolrService.add(self.to_solr)
   end
 
   def delete_solr_record
-    SolrService.delete(solr_id)
+    ::SolrService.delete(solr_id)
   end
 
   def title
@@ -68,11 +69,21 @@ class Work < ApplicationRecord
     video_url.split("/").last
   end
 
-  def decades
-    components.map(&:creation_date)
+  def creation_dates
+    components.map(&:creation_date) # grab any component level creation dates
+      .append(creation_date) # add the work level creation date
       .compact
+      .uniq
+  end
+
+  def decades
+    creation_dates
       .map(&:to_i)
       .map(&:to_s)
       .map { |date| "#{date[0..2]}0s" }
+  end
+
+  def self.reindex_all
+    all.each {|w| w.index_record}
   end
 end

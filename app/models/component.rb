@@ -61,7 +61,6 @@ class Component < ApplicationRecord
       notes_t: notes,
       date_of_entry_t: date_of_entry,
       cataloger_t: cataloger,
-      pub_date: creation_date,
       recording_date_t: recording_date,
     }
   end
