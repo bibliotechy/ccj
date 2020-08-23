@@ -6,10 +6,14 @@ module SolrService
   def self.delete(id)
     connection.delete_by_id(id)
     puts "Deleted solr record #{id}"
-    connection.commit
+    commit
   end
 
   def self.connection
     RSolr.connect(url: Blacklight.connection_config[:url])
+  end
+
+  def self.commit
+    connection.commit
   end
 end

@@ -14,8 +14,19 @@
       <div class="col-md-6">
         <h4> Description </h4>
         <%= @work.description_en %>
-        <br />
+        <hr style="border-top:0" />
         <%= @work.description_jp %>
+        <% if @work.creation_date.present? %>
+        <hr />
+        <h4> Creation Date </h4>
+        <%= @work.creation_date%>
+        <% end %>
+        <% if @work.format.present? %>
+                <hr />
+        <h4> Format </h4>
+        <%= @work.format %>
+        <% end %>
+
       </div>
       <div class="col-md-6">
         <% if @work.video_url %>
@@ -32,7 +43,7 @@
           <%= @work.components.group_by(&:collection).collect do |collection, components| %>
               <%= components.each_with_index.collect do |component, index| %>
               <li class="component-list-item">
-                <h5><%= link_to("#{component}", component_path(component)) %></h5>
+                <h5><%= component %></h5>
                 <ul class="list-unstyled">
                 <%= work_page_fields(component).collect do |k,v| %>
                   <li>

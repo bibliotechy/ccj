@@ -1,14 +1,28 @@
 <p id="notice"><%= notice %></p>
-<h2><%= @artist.name %></h2>
 
-<% if @artist&.image&.attached? %>
-<%= image_tag @artist.image.variant(resize: "200x200") %>
-<% end %>
-<p>
-  <strong>Works </strong>
-  <ul class="list-unstyled">
+<h2><%= @artist.name %></h2>
+ <hr />
+<div class="row">
+  <div class="col-md-6">
+    <% if @artist.description_en %>
+    <p>
+      <%= @artist.description_en %>
+    </p>
+    <% end %>
+    <% if @artist.description_jp %>
+    <p>
+     <%= @artist.description_jp %>
+    </p>
+  <% end %>
+  </div>
+  <div class="col-md-6">
+    <% if @artist&.image&.attached? %>
+    <%= image_tag @artist.image.variant(resize: "400x400") %>
+    <% end %>
+  </div>
+</div>
+<hr />
+<h3>Works </h3>
     <%= @artist.works.uniq.collect do |work| %>
-      <%= content_tag(:li, link_to(work, solr_document_url("work_#{work.id}"))) %>
+      <%= content_tag(:h4, link_to(work, solr_document_url(work.local_id))) %>
       <% end.join.html_safe %>
-  </ul>
-</p>

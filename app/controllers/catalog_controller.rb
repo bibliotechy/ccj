@@ -42,6 +42,7 @@ class CatalogController < ApplicationController
         color_t
         sound_t
         run_time_t
+        media_format_t
       ]
 
     }
@@ -73,17 +74,18 @@ class CatalogController < ApplicationController
     config.index.display_type_field = 'format'
 
     config.add_facet_field 'artists_facet', label: 'Artists', limit: 5, collapse: false
-    config.add_facet_field 'decades_facet', label: "Decade", collapse: false
+    config.add_facet_field 'decades_facet', label: "Decade", sort: :index, collapse: false
     config.add_facet_field 'contributors_facet', label: 'Contributors', limit: 5, collapse: false
     config.add_facet_field 'film_print_type_facet', label: 'Film Print Type', limit: 5, collapse: false
     config.add_facet_field 'viewing_restrictions_facet', label: 'Viewing Restrictions', limit: 5, collapse: false
-    config.add_facet_field 'collection_facet', label: "Collection", limit: 5, collapse: false
+    config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false
+    config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false
+    #config.add_facet_field 'collection_facet', label: "Collection", limit: 5, collapse: false
     # Only for logged in users
     config.add_facet_field 'bit_depth_facet', label: 'Bit Depth', limit: 5, collapse: false, if: :user_signed_in?
     config.add_facet_field 'dimensions_facet', label: 'Dimensions', limit: 5, collapse: false, if: :user_signed_in?
-    config.add_facet_field 'media_format_facet', label: 'Media Format', limit: 5, collapse: false, if: :user_signed_in?
     config.add_facet_field 'component_type_facet', label: 'Component Type', limit: 5, collapse: false, if: :user_signed_in?
-    config.add_facet_field 'media_type_facet', label: "Media Type", limit: 5, collapse: false, if: :user_signed_in?
+    
 
 
 
@@ -92,6 +94,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'artists_t', label: 'Artists', helper: :artists_display
+    config.add_index_field 'pub_date', label: 'Creation Date'
+    config.add_index_field 'media_format_t', label: 'Format'
 
 
 
