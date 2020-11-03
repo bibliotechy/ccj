@@ -15,6 +15,7 @@ class WorkDashboard < Administrate::BaseDashboard
     title_jp: Field::Text,
     description_en: Field::Text,
     description_jp: Field::Text,
+    image: Field::ActiveStorage,
     video_url: Field::String,
     local_id: Field::String,
     created_at: Field::DateTime,
@@ -30,6 +31,7 @@ class WorkDashboard < Administrate::BaseDashboard
     :title_jp,
     :title_en,
     :artist,
+    :image,
     :components
   ].freeze
 
@@ -43,6 +45,7 @@ class WorkDashboard < Administrate::BaseDashboard
     :title_jp,
     :description_en,
     :description_jp,
+    :image,
     :video_url,
     :local_id,
     :created_at,
@@ -57,6 +60,7 @@ class WorkDashboard < Administrate::BaseDashboard
     :title_jp,
     :description_en,
     :description_jp,
+    :image,
     :video_url,
     :local_id,
   ].freeze

@@ -29,14 +29,22 @@
 
       </div>
       <div class="col-md-6">
-        <% if @work.video_url %>
-            <div style="padding:56.25% 0 0 0;position:relative;">
-              <iframe src="https://player.vimeo.com/video/<%= @work.video_id %>?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-              </iframe>
-            </div>
+        <div class="row">
+          <% if @work.image.attached? %>
+          <img src="<%= url_for(@work.image)%>" class="img-fluid" alt="" width="100%"/>
+          <% end %>
+        </div>
+        <div class="row">
+          <% if @work.video_url %>
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/<%= @work.video_id %>?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+            </iframe>
+          </div>
           <script src="https://player.vimeo.com/api/player.js"></script>
           <hr />
-        <% end %>
+          <% end %>
+        </div>
+      </div>  
         <h4> Components (<%= @work.components.count %>)</h4>
         <div class="components-on-work-page">
           <ul class="list-unstyled">

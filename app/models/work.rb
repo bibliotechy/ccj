@@ -3,6 +3,7 @@ class Work < ApplicationRecord
   belongs_to :artist
   has_many :component_artists, -> { distinct }, through: :components, source: :artists
   has_many :collections, -> { distinct }, through: :components
+  has_one_attached :image
 
   after_save :index_record
   after_destroy :delete_solr_record
