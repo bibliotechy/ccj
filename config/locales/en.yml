@@ -30,8 +30,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  about:
+    label: About
+    title: About Collaborative Cataloging Japan
   home:
-    title: Collaborative Cataloging Japan Database Project
+    title: |
+     Collaborative Cataloging Japan
+     Database Project Prototype
     text: One of the missions of CCJ is to offer access to research resources about Japanese experimental moving image. In the Database project, CCJ aims to provide a portal to existing collection information, including descriptive information about the works and the artists (on going process). Combined with the resources available on the CCJ website and other media such as essays, artist interviews, screenings, exhibitions, publication, and documentation of presentations, we carry out our "Dissemination" prong of the mission. Further, the Database documents the metadata we collect during our Collection Survey project (for internal access) that includes assessment of the preservation conditions and inventory of existing copies. This information helps us and our partners determine how to approach preservation projects. The Database Working Group comprised of experts in the field have led this project and will continue to refine it. This is the prototype of the Database, and it is a work-in-progress. 
   helpers:
     label:
@@ -45,5 +50,4 @@ en:
     media_type: Media Type
     media_format: Media Format
     notes: Notes
-  about: About
   browse: Browse
