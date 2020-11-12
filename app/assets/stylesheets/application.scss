@@ -52,6 +52,7 @@ body {
   max-height: 400px;
   overflow-x: scroll;
   border: 1px lightgray solid;
+  padding-left: 1em;
  }
 
  .component-list-item {
@@ -67,6 +68,7 @@ body {
 .index-context {
   font-size: .85em;
   line-height: 1.5;
+  padding-bottom: 15px;
 
   .artist-name {
     font-size: 1em;

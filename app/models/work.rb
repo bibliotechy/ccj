@@ -45,6 +45,14 @@ class Work < ApplicationRecord
     return_hash.transform_values(&:uniq)
   end
 
+  def component_sounds
+    @component_sounds ||= components.map(&:sound).compact  
+  end
+
+  def component_color
+    @component_colors ||= components.map(&:color).compact  
+  end
+
   def index_record
     ::SolrService.add(self.to_solr)
   end

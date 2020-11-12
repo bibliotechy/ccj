@@ -1,7 +1,8 @@
 module ApplicationHelper
 
   def work_details(document)
-    document.values_at('color_t', 'sound_t', 'run_time_t', "media_format_t").compact.map do |detail|
+    binding.pry
+    document.values_at('color_t', 'sound_t', 'run_time_t', "media_format_t", "pub_date" ).compact.map do |detail|
       detail.compact.uniq.to_sentence
     end.join(", ")
   end
