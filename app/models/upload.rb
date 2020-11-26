@@ -109,8 +109,17 @@ class Upload < ApplicationRecord
   end
 
   def add_artist(row)
-    Artist.find_or_create_by(name_jp: row["artist name (jp)"]) do |a|
-      a.name_en = row["artist name (en)"]
+    
+    if row.fetch("artist name (jp)", nil).present?
+      Artist.find_or_create_by(name_jp: row["artist name (jp)"]) do |a|
+        a.name_en = row["artist name (en)"]
+      end
+    elsif row.fetch("artist name (en)", nil).present?
+      Artist.find_or_create_by(name_en: row["artist name (en)"]) do |a|
+        a.name_jp = row["artist name (jp)"]
+      end
+    else
+      raise Exception.new("No artist names were found")
     end
   end
 
