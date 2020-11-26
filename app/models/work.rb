@@ -46,11 +46,11 @@ class Work < ApplicationRecord
   end
 
   def component_sounds
-    @component_sounds ||= components.map(&:sound).compact  
+    @component_sounds ||= components.map(&:sound).compact.uniq
   end
 
   def component_color
-    @component_colors ||= components.map(&:color).compact  
+    @component_colors ||= components.map(&:color).compact.uniq
   end
 
   def index_record
