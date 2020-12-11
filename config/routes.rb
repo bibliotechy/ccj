@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog', :constraints => { :id => /[^\/]+/ } do
     concerns :exportable
   end
 
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   end
 
   resources :artists, only: [:show]
-  resources :works, only: [:show]
+  resources :works, only: [:show], :constraints => { :user => /([^\/]+?)(?=\.json|\.html|$|\/)/ }
   resources :components, only: [:show]
   resources :collections, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
