@@ -27,7 +27,7 @@ class ComponentDashboard < Administrate::BaseDashboard
     component_type: Field::String,
     relation: Field::String,
     film_process_type: Field::String,
-    fps: Field::Number,
+    fps: Field::String,
     brand: Field::String,
     file_name: Field::String,
     codecs: Field::String,
