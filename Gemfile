@@ -69,3 +69,4 @@ gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'carrierwave', '~> 1.0'
 gem 'bootsnap'
+gem "honeybadger", "~> 4.0"
