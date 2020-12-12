@@ -11,7 +11,9 @@
       <p class="collapse" id="collapse-jp" aria-expanded="false">
         <%= @context.description_jp =%>
       </p>
+      <% if @context.description_jp.present? %>
       <a role="button" class="collapsed" data-toggle="collapse" href="#collapse-jp" aria-expanded="false" aria-controls="collapse-jp"></a>
+      <% end %>
     </div>
   </div>
 </div>
