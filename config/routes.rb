@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog', :constraints => { :id => /[^\/]+/ } do
     concerns :searchable
   end
 
