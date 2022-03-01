@@ -55,7 +55,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'administrate'
 gem 'administrate-field-active_storage'
 gem "mini_magick"
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 gem 'blacklight', '~> 6.0'
 
 group :development, :test do
