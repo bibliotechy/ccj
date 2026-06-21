@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search | Collaborative Cataloging Japan Database">
+  <section class="catalog-app" data-search-app>
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">Catalog</p>
+        <h1>Search Records</h1>
+      </div>
+      <form class="catalog-search-form" id="catalog-search-form" role="search">
+        <label class="sr-only" for="catalog-q">Search records</label>
+        <input id="catalog-q" name="q" type="search" placeholder="Title, artist, description, identifier" />
+        <button type="submit">Search</button>
+      </form>
+      <div class="active-filters" id="active-filters" aria-live="polite"></div>
+    </header>
+
+    <div class="catalog-layout">
+      <aside class="facet-sidebar" aria-label="Facets">
+        <div class="facet-heading">
+          <h2>Facets</h2>
+          <button class="link-button" id="clear-filters" type="button">Clear</button>
+        </div>
+        <div id="facet-list"></div>
+      </aside>
+
+      <section class="results-panel" aria-label="Search results">
+        <div class="artist-context" id="artist-context" hidden></div>
+        <div class="results-toolbar">
+          <p id="result-count">Loading records</p>
+          <label>
+            <span>Sort</span>
+            <select id="sort-select">
+              <option value="relevance">Relevance</option>
+              <option value="title">Title</option>
+              <option value="year-desc">Year descending</option>
+              <option value="year-asc">Year ascending</option>
+            </select>
+          </label>
+        </div>
+        <div class="result-list" id="result-list"></div>
+        <nav class="pagination" id="pagination" aria-label="Search result pages"></nav>
+      </section>
+    </div>
+  </section>
+
+  <script>
+    const facetDefinitions = [
+      { key: 'artists', param: 'artist', legacyParam: 'f[artists_facet][]', label: 'Artists' },
+      { key: 'decades', param: 'decade', label: 'Decade', alpha: true },
+      { key: 'collections', param: 'collection', label: 'Collection' },
+      { key: 'mediaFormats', param: 'mediaFormat', label: 'Media Format' },
+      { key: 'mediaTypes', param: 'mediaType', label: 'Media Type' },
+      { key: 'componentTypes', param: 'componentType', label: 'Component Type' },
+      { key: 'viewingRestrictions', param: 'viewing', label: 'Viewing Restrictions' },
+    ];
+
+    const pageSize = 12;
+    const facetDisplayLimit = 10;
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function uniq(values) {
+      const seen = new Set();
+      return values.filter((value) => {
+        if (!value || seen.has(value)) {
+          return false;
+        }
+        seen.add(value);
+        return true;
+      });
+    }
+
+    function tokenize(query) {
+      return query
+        .toLocaleLowerCase()
+        .split(/\s+/)
+        .map((term) => term.trim())
+        .filter(Boolean);
+    }
+
+    function normalizeName(value) {
+      return String(value ?? '')
+        .normalize('NFKC')
+        .replace(/[,\s]/g, '')
+        .toLocaleLowerCase();
+    }
+
+    function nameKeys(value) {
+      return String(value ?? '')
+        .split('/')
+        .map((part) => normalizeName(part))
+        .concat(normalizeName(value))
+        .filter(Boolean);
+    }
+
+    function keysOverlap(left, right) {
+      const rightSet = new Set(right);
+      return left.some((key) => rightSet.has(key));
+    }
+
+    function artistKeys(artist) {
+      return [
+        ...nameKeys(artist.name?.display),
+        normalizeName(artist.name?.en),
+        normalizeName(artist.name?.jp),
+      ].filter(Boolean);
+    }
+
+    function readState() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        q: params.get('q') ?? '',
+        page: Math.max(Number(params.get('page') ?? '1'), 1),
+        sort: params.get('sort') ?? 'relevance',
+        facets: Object.fromEntries(
+          facetDefinitions.map((facet) => [
+            facet.key,
+            uniq([
+              ...params.getAll(facet.param),
+              ...(facet.legacyParam ? params.getAll(facet.legacyParam) : []),
+            ]),
+          ]),
+        ),
+      };
+    }
+
+    function canonicalizeArtistFilters(state, records) {
+      const selectedArtists = state.facets.artists ?? [];
+      if (selectedArtists.length === 0) {
+        return state;
+      }
+
+      const facetValues = uniq(records.flatMap((record) => record.facets.artists ?? []));
+      state.facets.artists = uniq(
+        selectedArtists.map((selected) => {
+          const selectedKeys = nameKeys(selected);
+          return (
+            facetValues.find((value) => keysOverlap(selectedKeys, nameKeys(value))) ??
+            selected
+          );
+        }),
+      );
+      return state;
+    }
+
+    function writeState(state) {
+      const next = new URL(window.location.href);
+      next.search = '';
+      if (state.q) {
+        next.searchParams.set('q', state.q);
+      }
+      if (state.sort && state.sort !== 'relevance') {
+        next.searchParams.set('sort', state.sort);
+      }
+      for (const facet of facetDefinitions) {
+        for (const value of state.facets[facet.key] ?? []) {
+          next.searchParams.append(facet.param, value);
+        }
+      }
+      if (state.page > 1) {
+        next.searchParams.set('page', String(state.page));
+      }
+      history.pushState({}, '', next);
+    }
+
+    function scoreRecord(record, query) {
+      const terms = tokenize(query);
+      if (terms.length === 0) {
+        return 1;
+      }
+      if (!terms.every((term) => record.searchText.includes(term))) {
+        return 0;
+      }
+
+      const q = query.toLocaleLowerCase();
+      let score = 1;
+      const title = String(record.title ?? '').toLocaleLowerCase();
+      const localId = String(record.localId ?? '').toLocaleLowerCase();
+      const artists = record.artists.join(' ').toLocaleLowerCase();
+      const description = String(record.description ?? '').toLocaleLowerCase();
+
+      if (title.includes(q)) score += 30;
+      if (localId.includes(q)) score += 24;
+      if (artists.includes(q)) score += 18;
+      if (description.includes(q)) score += 8;
+      score += terms.filter((term) => title.includes(term)).length * 6;
+      score += terms.filter((term) => artists.includes(term)).length * 4;
+      return score;
+    }
+
+    function matchesFacets(record, state, omitFacetKey) {
+      return facetDefinitions.every((facet) => {
+        if (facet.key === omitFacetKey) {
+          return true;
+        }
+        const selected = state.facets[facet.key] ?? [];
+        if (selected.length === 0) {
+          return true;
+        }
+        const values = record.facets[facet.key] ?? [];
+        return selected.some((value) => values.includes(value));
+      });
+    }
+
+    function getScoredRecords(records, state) {
+      return records
+        .map((record) => ({ record, score: scoreRecord(record, state.q) }))
+        .filter(({ record, score }) => score > 0 && matchesFacets(record, state))
+        .sort((a, b) => {
+          if (state.sort === 'title') {
+            return a.record.sortTitle.localeCompare(b.record.sortTitle);
+          }
+          if (state.sort === 'year-desc') {
+            return (b.record.sortYear || 0) - (a.record.sortYear || 0) || a.record.sortTitle.localeCompare(b.record.sortTitle);
+          }
+          if (state.sort === 'year-asc') {
+            return (a.record.sortYear || 9999) - (b.record.sortYear || 9999) || a.record.sortTitle.localeCompare(b.record.sortTitle);
+          }
+          return b.score - a.score || a.record.sortTitle.localeCompare(b.record.sortTitle);
+        });
+    }
+
+    function facetCounts(records, state, facetKey) {
+      const counts = new Map();
+      for (const record of records) {
+        if (scoreRecord(record, state.q) === 0 || !matchesFacets(record, state, facetKey)) {
+          continue;
+        }
+        for (const value of record.facets[facetKey] ?? []) {
+          counts.set(value, (counts.get(value) ?? 0) + 1);
+        }
+      }
+      return counts;
+    }
+
+    function renderActiveFilters(activeFilters, state) {
+      const chips = [];
+      if (state.q) {
+        chips.push(`<button type="button" data-clear-query>Search: ${escapeHtml(state.q)}</button>`);
+      }
+      for (const facet of facetDefinitions) {
+        for (const value of state.facets[facet.key] ?? []) {
+          chips.push(
+            `<button type="button" data-clear-facet="${facet.key}" data-value="${escapeHtml(value)}">${escapeHtml(facet.label)}: ${escapeHtml(value)}</button>`,
+          );
+        }
+      }
+      activeFilters.innerHTML = chips.join('');
+    }
+
+    function renderFacets(facetList, records, state, expandedFacets) {
+      facetList.innerHTML = facetDefinitions
+        .map((facet) => {
+          const counts = facetCounts(records, state, facet.key);
+          const selected = state.facets[facet.key] ?? [];
+          const entries = [...counts.entries()];
+          for (const value of selected) {
+            if (!counts.has(value)) {
+              entries.push([value, 0]);
+            }
+          }
+          entries.sort((a, b) => {
+            if (facet.alpha) {
+              return a[0].localeCompare(b[0]);
+            }
+            return b[1] - a[1] || a[0].localeCompare(b[0]);
+          });
+
+          const expanded = expandedFacets.has(facet.key);
+          const visibleEntries = expanded ? entries : entries.slice(0, facetDisplayLimit);
+          const hiddenCount = Math.max(entries.length - facetDisplayLimit, 0);
+          const toggle = hiddenCount
+            ? `
+              <button
+                class="link-button facet-toggle"
+                type="button"
+                data-facet-toggle="${facet.key}"
+                aria-expanded="${expanded ? 'true' : 'false'}"
+              >
+                ${expanded ? 'Show fewer' : `Show all (${hiddenCount} more)`}
+              </button>
+            `
+            : '';
+
+          const options = visibleEntries
+            .map(([value, count]) => {
+              const checked = selected.includes(value) ? 'checked' : '';
+              return `
+                <label class="facet-option">
+                  <input type="checkbox" data-facet="${facet.key}" value="${escapeHtml(value)}" ${checked} />
+                  <span>${escapeHtml(value)}</span>
+                  <em>${count}</em>
+                </label>
+              `;
+            })
+            .join('');
+
+          return `
+            <section class="facet-group">
+              <h3>${escapeHtml(facet.label)}</h3>
+              ${options || '<p class="facet-empty">No values</p>'}
+              ${toggle}
+            </section>
+          `;
+        })
+        .join('');
+    }
+
+    function findArtistContext(selectedArtist, artists) {
+      if (!selectedArtist) {
+        return undefined;
+      }
+      const selectedKeys = nameKeys(selectedArtist);
+      return artists.find((artist) => keysOverlap(selectedKeys, artistKeys(artist)));
+    }
+
+    function renderArtistContext(container, state, artists) {
+      const selectedArtists = state.facets.artists ?? [];
+      if (selectedArtists.length !== 1) {
+        container.hidden = true;
+        container.innerHTML = '';
+        return;
+      }
+
+      const artist = findArtistContext(selectedArtists[0], artists);
+      if (!artist) {
+        container.hidden = true;
+        container.innerHTML = '';
+        return;
+      }
+
+      const descriptionBlocks = [
+        artist.description?.en ? `<p>${escapeHtml(artist.description.en)}</p>` : '',
+        artist.description?.jp ? `<p lang="ja">${escapeHtml(artist.description.jp)}</p>` : '',
+      ].join('');
+
+      container.hidden = false;
+      container.innerHTML = `
+        <div>
+          <p class="eyebrow">Artist</p>
+          <h2><a href="${artist.url}">${escapeHtml(artist.name.display)}</a></h2>
+          ${descriptionBlocks ? `
+            <details class="artist-context__description">
+              <summary>Artist description</summary>
+              <div>${descriptionBlocks}</div>
+            </details>
+          ` : ''}
+        </div>
+        <a class="text-link" href="${artist.url}">Artist page</a>
+      `;
+    }
+
+    function renderResults(resultList, resultCount, pagination, scoredRecords, state) {
+      const total = scoredRecords.length;
+      const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+      state.page = Math.min(state.page, totalPages);
+      const start = (state.page - 1) * pageSize;
+      const pageRecords = scoredRecords.slice(start, start + pageSize);
+      const rangeStart = total === 0 ? 0 : start + 1;
+      const rangeEnd = Math.min(start + pageSize, total);
+
+      resultCount.textContent =
+        total === 0 ? 'No records' : `${rangeStart}-${rangeEnd} of ${total} records`;
+
+      resultList.innerHTML = pageRecords
+        .map(({ record }) => {
+          const artistLine = record.artists.length ? record.artists.join(', ') : 'Unknown artist';
+          const details = [record.localId, record.creationDate, record.details].filter(Boolean).join(' | ');
+          const description = record.description
+            ? `<p>${escapeHtml(record.description).slice(0, 280)}</p>`
+            : '';
+          return `
+            <article class="result-item">
+              <div>
+                <p class="result-artist">${escapeHtml(artistLine)}</p>
+                <h2><a href="${record.url}">${escapeHtml(record.title)}</a></h2>
+                ${description}
+                <p class="result-details">${escapeHtml(details)}</p>
+              </div>
+              <span>${record.componentCount} components</span>
+            </article>
+          `;
+        })
+        .join('') || '<p class="empty-state">No matching records.</p>';
+
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+
+      pagination.innerHTML = `
+        <button type="button" data-page="${state.page - 1}" ${state.page === 1 ? 'disabled' : ''}>Previous</button>
+        <span>Page ${state.page} of ${totalPages}</span>
+        <button type="button" data-page="${state.page + 1}" ${state.page === totalPages ? 'disabled' : ''}>Next</button>
+      `;
+    }
+
+    async function initCatalogSearch() {
+      const app = document.querySelector('[data-search-app]');
+      if (!app) {
+        return;
+      }
+
+      const form = document.querySelector('#catalog-search-form');
+      const input = document.querySelector('#catalog-q');
+      const facetList = document.querySelector('#facet-list');
+      const resultList = document.querySelector('#result-list');
+      const resultCount = document.querySelector('#result-count');
+      const activeFilters = document.querySelector('#active-filters');
+      const clearFilters = document.querySelector('#clear-filters');
+      const sortSelect = document.querySelector('#sort-select');
+      const pagination = document.querySelector('#pagination');
+      const artistContext = document.querySelector('#artist-context');
+      const [response, artistResponse] = await Promise.all([
+        fetch('/search-index.json'),
+        fetch('/artist-context.json'),
+      ]);
+      const records = await response.json();
+      const artists = await artistResponse.json();
+      let state = canonicalizeArtistFilters(readState(), records);
+      const expandedFacets = new Set();
+
+      function render(push = false) {
+        input.value = state.q;
+        sortSelect.value = state.sort;
+        const scoredRecords = getScoredRecords(records, state);
+        if (push) {
+          writeState(state);
+        }
+        renderActiveFilters(activeFilters, state);
+        renderFacets(facetList, records, state, expandedFacets);
+        renderArtistContext(artistContext, state, artists);
+        renderResults(resultList, resultCount, pagination, scoredRecords, state);
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        state.q = input.value.trim();
+        state.page = 1;
+        render(true);
+      });
+
+      sortSelect.addEventListener('change', () => {
+        state.sort = sortSelect.value;
+        state.page = 1;
+        render(true);
+      });
+
+      facetList.addEventListener('change', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) {
+          return;
+        }
+        const facet = target.dataset.facet;
+        const current = new Set(state.facets[facet] ?? []);
+        if (target.checked) {
+          current.add(target.value);
+        } else {
+          current.delete(target.value);
+        }
+        state.facets[facet] = [...current];
+        state.page = 1;
+        render(true);
+      });
+
+      facetList.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLButtonElement) || !target.dataset.facetToggle) {
+          return;
+        }
+        if (expandedFacets.has(target.dataset.facetToggle)) {
+          expandedFacets.delete(target.dataset.facetToggle);
+        } else {
+          expandedFacets.add(target.dataset.facetToggle);
+        }
+        render(false);
+      });
+
+      activeFilters.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLButtonElement)) {
+          return;
+        }
+        if (target.hasAttribute('data-clear-query')) {
+          state.q = '';
+        }
+        const facet = target.dataset.clearFacet;
+        if (facet) {
+          state.facets[facet] = (state.facets[facet] ?? []).filter(
+            (value) => value !== target.dataset.value,
+          );
+        }
+        state.page = 1;
+        render(true);
+      });
+
+      clearFilters.addEventListener('click', () => {
+        state = {
+          q: '',
+          page: 1,
+          sort: 'relevance',
+          facets: Object.fromEntries(facetDefinitions.map((facet) => [facet.key, []])),
+        };
+        render(true);
+      });
+
+      pagination.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLButtonElement) || !target.dataset.page) {
+          return;
+        }
+        state.page = Math.max(Number(target.dataset.page), 1);
+        render(true);
+        window.scrollTo({ top: app.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      });
+
+      window.addEventListener('popstate', () => {
+        state = readState();
+        render(false);
+      });
+
+      render(false);
+    }
+
+    initCatalogSearch().catch((error) => {
+      const resultCount = document.querySelector('#result-count');
+      if (resultCount) {
+        resultCount.textContent = 'Search index failed to load';
+      }
+      console.error(error);
+    });
+  </script>
+</BaseLayout>

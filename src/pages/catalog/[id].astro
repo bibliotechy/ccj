@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import records from '../../data/records.json';
+
+export function getStaticPaths() {
+  return records.map((record) => ({
+    params: { id: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+const artistNames = record.artists.map((artist) => artist.name);
+const groupedComponents = Object.entries(
+  record.components.reduce((groups, component) => {
+    const collection = component.collection || 'Unknown Collection';
+    groups[collection] ||= [];
+    groups[collection].push(component);
+    return groups;
+  }, {}),
+);
+
+const detailRows = [
+  ['Creation Date', record.creationDate],
+  ['Format', record.format || record.mediaFormats.join(', ')],
+  ['Color', record.colors.join(', ')],
+  ['Run Time', record.runTimes.join(', ')],
+  ['Sound', record.sounds.join(', ')],
+].filter(([, value]) => value);
+
+const componentFields = [
+  ['Held By', 'collection'],
+  ['Media Type', 'mediaType'],
+  ['Media Format', 'mediaFormat'],
+  ['Component Type', 'componentType'],
+  ['Creation Date', 'creationDate'],
+  ['Recording Date', 'recordingDate'],
+  ['Color', 'color'],
+  ['Sound', 'sound'],
+  ['Run Time', 'runTime'],
+  ['Viewing Restrictions', 'viewingRestrictions'],
+  ['Notes', 'notes'],
+];
+---
+
+<BaseLayout title={`${record.title.display} | Collaborative Cataloging Japan Database`}>
+  <section class="record-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/catalog/">Catalog</a>
+      <span>{record.localId}</span>
+    </nav>
+
+    <header class="record-header">
+      <div>
+        <p class="eyebrow">{record.localId}</p>
+        <h1>{record.title.display}</h1>
+        {artistNames.length > 0 && (
+          <ul class="artist-list">
+            {record.artists.map((artist) => (
+              <li>
+                <a href={artist.url || `/catalog/?artist=${encodeURIComponent(artist.name)}`}>
+                  {artist.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {record.videoId && (
+        <div class="video-embed">
+          <iframe
+            src={`https://player.vimeo.com/video/${record.videoId}?title=0&byline=0&portrait=0`}
+            title={`${record.title.display} video`}
+            allow="fullscreen; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      )}
+    </header>
+
+    <div class="record-body">
+      <section class="record-main">
+        {(record.description.en || record.description.jp) && (
+          <div class="prose">
+            <h2>Description</h2>
+            {record.description.en && <p>{record.description.en}</p>}
+            {record.description.jp && <p lang="ja">{record.description.jp}</p>}
+          </div>
+        )}
+
+        <section class="component-section">
+          <div class="section-heading">
+            <h2>Components</h2>
+            <span>{record.componentCount}</span>
+          </div>
+          {groupedComponents.length === 0 ? (
+            <p class="empty-state">No component records are available.</p>
+          ) : (
+            groupedComponents.map(([collection, components]) => (
+              <section class="component-group">
+                <h3>{collection}</h3>
+                <div class="component-list">
+                  {components.map((component) => (
+                    <article class="component-item">
+                      <h4>{component.id}</h4>
+                      <dl>
+                        {componentFields.map(([label, key]) => (
+                          component[key] && (
+                            <>
+                              <dt>{label}</dt>
+                              <dd>{component[key]}</dd>
+                            </>
+                          )
+                        ))}
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ))
+          )}
+        </section>
+      </section>
+
+      <aside class="record-aside" aria-label="Record details">
+        <dl class="detail-list">
+          {detailRows.map(([label, value]) => (
+            <>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </>
+          ))}
+          {record.facets.collections.length > 0 && (
+            <>
+              <dt>Collections</dt>
+              <dd>{record.facets.collections.join(', ')}</dd>
+            </>
+          )}
+          {record.facets.mediaTypes.length > 0 && (
+            <>
+              <dt>Media Type</dt>
+              <dd>{record.facets.mediaTypes.join(', ')}</dd>
+            </>
+          )}
+        </dl>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

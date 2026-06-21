@@ -18,9 +18,13 @@
 !/tmp/.keep
 
 /node_modules
+/dist
+/.astro
 /yarn-error.log
 
 .byebug_history
+.DS_Store
 
 public/uploads/*
 storage/*
+db/prod.db

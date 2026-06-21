@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import artists from '../../data/artists.json';
+
+export function getStaticPaths() {
+  return artists.map((artist) => ({
+    params: { id: artist.id },
+    props: { artist },
+  }));
+}
+
+const { artist } = Astro.props;
+const identifiers = [
+  ['Local Identifier', artist.localIdentifier],
+  ['VIAF', artist.viafIdentifier],
+  ['External Link', artist.externalLink],
+].filter(([, value]) => value);
+---
+
+<BaseLayout title={`${artist.name.display} | Collaborative Cataloging Japan Database`}>
+  <section class="artist-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/catalog/">Catalog</a>
+      <span>Artist</span>
+    </nav>
+
+    <header class="artist-header">
+      <div>
+        <p class="eyebrow">Artist</p>
+        <h1>{artist.name.display}</h1>
+      </div>
+      {artist.image && (
+        <img class="artist-portrait" src={artist.image.url} alt="" loading="lazy" />
+      )}
+    </header>
+
+    <div class="artist-body">
+      <section class="artist-main">
+        {(artist.description.en || artist.description.jp) && (
+          <div class="prose">
+            {artist.description.en && <p>{artist.description.en}</p>}
+            {artist.description.jp && <p lang="ja">{artist.description.jp}</p>}
+          </div>
+        )}
+
+        <section class="artist-works">
+          <div class="section-heading">
+            <h2>Works</h2>
+            <span>{artist.works.length}</span>
+          </div>
+          {artist.works.length === 0 ? (
+            <p class="empty-state">No works are linked to this artist in the production database.</p>
+          ) : (
+            <ol class="work-list">
+              {artist.works.map((work) => (
+                <li>
+                  <div>
+                    {work.url ? (
+                      <a href={work.url}>{work.title.display}</a>
+                    ) : (
+                      <span>{work.title.display}</span>
+                    )}
+                    <p>{[work.localId, work.creationDate].filter(Boolean).join(' | ')}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
+      </section>
+
+      {identifiers.length > 0 && (
+        <aside class="record-aside" aria-label="Artist identifiers">
+          <dl class="detail-list">
+            {identifiers.map(([label, value]) => (
+              <>
+                <dt>{label}</dt>
+                <dd>
+                  {label === 'External Link' ? <a href={value}>{value}</a> : value}
+                </dd>
+              </>
+            ))}
+          </dl>
+        </aside>
+      )}
+    </div>
+  </section>
+</BaseLayout>

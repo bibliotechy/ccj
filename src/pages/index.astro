@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import records from '../data/records.json';
+
+const componentCount = records.reduce((total, record) => total + record.componentCount, 0);
+const collections = new Set(records.flatMap((record) => record.facets.collections));
+const artists = new Set(records.flatMap((record) => record.facets.artists));
+const featuredRecords = records
+  .filter((record) => record.description.en || record.description.jp)
+  .slice(0, 4);
+---
+
+<BaseLayout>
+  <section class="home-band">
+    <div class="home-grid">
+      <div class="home-primary">
+        <p class="eyebrow">Database Project Prototype</p>
+        <h1>Collaborative Cataloging Japan Database</h1>
+        <form class="catalog-search-form" action="/catalog/" method="get">
+          <label class="sr-only" for="home-q">Search records</label>
+          <input id="home-q" name="q" type="search" placeholder="Title, artist, description, identifier" />
+          <button type="submit">Search</button>
+        </form>
+        <div class="stat-row" aria-label="Catalog totals">
+          <span><strong>{records.length}</strong> works</span>
+          <span><strong>{componentCount}</strong> components</span>
+          <span><strong>{artists.size}</strong> artists</span>
+          <span><strong>{collections.size}</strong> collections</span>
+        </div>
+      </div>
+      <div class="image-strip" aria-label="Collection survey images">
+        <img src="/images/collection-survey-resized.jpg" alt="Collection survey materials" />
+        <img src="/images/Seizoki2-resized.jpg" alt="Film frame from survey materials" />
+        <img src="/images/film-cannisters-resized.jpg" alt="Film cannisters" />
+      </div>
+    </div>
+  </section>
+
+  <section class="content-band">
+    <div class="section-heading">
+      <h2>Browse Records</h2>
+      <a class="text-link" href="/catalog/">Open full catalog</a>
+    </div>
+    <div class="record-grid">
+      {featuredRecords.map((record) => (
+        <article class="record-card">
+          <p class="record-card__meta">{record.artists.map((artist) => artist.name).join(', ')}</p>
+          <h3><a href={record.url}>{record.title.display}</a></h3>
+          <p>{record.description.en || record.description.jp}</p>
+          <div class="chip-row">
+            {record.creationDate && <span>{record.creationDate}</span>}
+            {record.details && <span>{record.details}</span>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

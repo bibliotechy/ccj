@@ -1,0 +1,43 @@
+---
+const {
+  title = 'Collaborative Cataloging Japan Database',
+  description = 'Static catalog of Japanese experimental moving image works and related collection records.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="/" aria-label="Collaborative Cataloging Japan">
+          <img src="/images/ccj.png" alt="" width="247" height="67" />
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/catalog/">Search</a>
+          <a href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <span>&copy; {new Date().getFullYear()} Collaborative Cataloging Japan</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
