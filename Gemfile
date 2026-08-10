@@ -67,7 +67,7 @@ gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'bootsnap'
 gem "honeybadger", "~> 4.0"
 gem 'dotenv-rails'
